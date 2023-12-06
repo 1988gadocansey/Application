@@ -1,0 +1,27 @@
+<script setup>
+import { storeToRefs } from 'pinia';
+
+import { useAuthStore, useUsersStore } from '@/stores';
+
+const authStore = useAuthStore();
+const { user: authUser } = storeToRefs(authStore);
+
+const usersStore = useUsersStore();
+const { users } = storeToRefs(usersStore);
+
+usersStore.getAll();
+</script>
+
+<template>
+    <div>
+        <h1>Hi {{authUser?.token}}!</h1>
+        <p>You're logged to the admission portal!!</p>
+        <p>{{users.fullName}}</p>
+        <h3>click to start application:</h3>
+<!--        <ul v-if="users.length">
+            <li v-for="user in users" :key="user.id">{{user.fullname}} {{user.lastName}}</li>
+        </ul>
+        <div v-if="users.loading" class="spinner-border spinner-border-sm"></div>
+        <div v-if="users.error" class="text-danger">Error loading users: {{users.error}}</div>-->
+    </div>
+</template>
