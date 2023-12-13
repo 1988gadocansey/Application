@@ -1,0 +1,7 @@
+input {
+    @apply p-3 w-full rounded-lg focus:outline-none outline-none border focus:bg-white active:bg-white;
+}
+
+.ttu-select {
+    @apply w-full p-3 rounded-lg outline-none bg-white border;
+}
