@@ -38,26 +38,29 @@ function onSubmit(values, {setErrors}) {
         </div>
         <h1 class="text-4xl font-bold">"Fast, Efficient and Productive"</h1>
         <div class="mt-6 font-normal text-justify text-gray-300 md:mt-0">
-            <p>The University Admission Portal streamlines the application process, allowing applicants to submit materials, track their progress, and stay updated on admission status, ensuring a clear and efficient application experience.</p>
-            &nbsp;
-            <p>
-                Serving as an information hub, the portal offers insights into program details, eligibility criteria, and support channels, providing aspiring students with comprehensive resources to navigate the admission journey confidently
-            </p>
+          <p>The University Admission Portal streamlines the application process, allowing applicants to submit
+            materials, track their progress, and stay updated on admission status, ensuring a clear and efficient
+            application experience.</p>
+          &nbsp;
+          <p>
+            Serving as an information hub, the portal offers insights into program details, eligibility criteria, and
+            support channels, providing aspiring students with comprehensive resources to navigate the admission journey
+            confidently
+          </p>
         </div>
-          <p>&nbsp;</p>
+        <p>&nbsp;</p>
         <p class="flex flex-col items-center justify-center mt-10
              text-center">
           <span>Buy your voucher using momo (Dial *772*45# / *771*115# / *924*200*19#  on all networks to purchase voucher).</span>
-            <p>&nbsp;</p>
-            <a href="">
-                     <img class="h-6 w-8/12 mr-14" src="icons/momos.png" alt=""/>
-
-
-            </a>
+          <p>&nbsp;</p>
+          <a href="">
+            <img class="" src="icons/bank.png" alt=""/>
+          </a>
         </p>
-          <p></p>
+        <p></p>
         <p class="mt-6 text-sm text-center text-gray-300">
-            <span class="text-xs font-thin">For any queries please contact Admissions Office Main Hotline/Whatsapp Number 0508665469,0256878004,0244950242,0553777777 <a href="mailto:admissions@ttu.edu.gh"> or admissions@ttu.edu.gh</a>. Thank you</span>
+          <span class="text-xs font-thin">For any queries please contact Admissions Office Main Hotline/Whatsapp Number 0508665469,0256878004,0244950242,0553777777 <a
+              href="mailto:admissions@ttu.edu.gh"> or admissions@ttu.edu.gh</a>. Thank you</span>
 
         </p>
 
@@ -82,7 +85,7 @@ function onSubmit(values, {setErrors}) {
             </p>
           </div>
 
-
+          {{ errors.apiError }}
 
           <div v-if="errors.apiError" class="p-2 rounded-lg text-sm bg-red-700 text-white" role="alert">
             {{ errors.apiError }}

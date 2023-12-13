@@ -14,7 +14,7 @@ usersStore.getAll();
 
 <template>
     <div>
-        <h1>Hi {{authUser?.token}}!</h1>
+        <h1>Hi {{authUser?.accessToken}}!</h1>
         <p>You're logged to the admission portal!!</p>
         <p>{{users.fullName}}</p>
         <h3>click to start application:</h3>
