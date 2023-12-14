@@ -1,0 +1,23 @@
+table {
+    @apply w-full;
+}
+
+thead {
+    @apply bg-blue-700 text-white font-normal text-sm uppercase;
+}
+
+td, th {
+    @apply p-3 text-left;
+}
+
+th:first-child {
+    @apply rounded-l-lg;
+}
+
+th:last-child {
+    @apply rounded-r-lg;
+}
+
+td {
+    @apply text-sm font-normal;
+}

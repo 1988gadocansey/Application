@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss/base";
+
+@import "tailwindcss/utilities";
+
+@import "tailwindcss/components";
+
+@import "custom-radio.css";
+
+@import "table.css";
+
+@import "buttons.css";
+
+@import "input.css";
+
+html, body {
+    font-family: Poppins, sans-serif;
+}
+
+.bg-sidebar {
+    background: #1a337e;
+}
+
+.cta-btn {
+    color: #3d68ff;
+}
+
+.upgrade-btn {
+    background: #1947ee;
+}
+
+.upgrade-btn:hover {
+    background: #0038fd;
+}
+
+.active-nav-link {
+    background: #1947ee;
+}
+
+.nav-item:hover {
+    background: #1947ee;
+}
+
+.account-link:hover {
+    background: #3d68ff;
+}

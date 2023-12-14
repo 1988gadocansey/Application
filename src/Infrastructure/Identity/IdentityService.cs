@@ -116,7 +116,7 @@ public class IdentityService(IApplicationDbContext context, UserManager<Applicat
     {
         const string str = "2F934678ABCDGHJKLMNPRSTUVWXY";
         var shuffled = Shuffle(str);
-        var vcode = shuffled.Substring(0, 9);
+        var vcode = shuffled[..9];
         return await Task.FromResult(vcode.ToUpper());
     }
 

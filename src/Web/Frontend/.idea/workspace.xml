@@ -4,18 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5c5e7c-6543-4cdf-8edf-c73ba6044e50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/icons/bank.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Preview.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/layouts/HomeLayout.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/layouts/MainLayout.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/layouts/PrintLayout.vue" afterDir="false" />
+    <list default="true" id="cf5c5e7c-6543-4cdf-8edf-c73ba6044e50" name="Changes" comment="created application layout">
+      <change afterPath="$PROJECT_DIR$/public/assets/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/icons/ttu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/buttons.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/custom-radio.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/input.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/table.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/layouts/Header.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/layouts/Menu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Infrastructure/Identity/IdentityService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Infrastructure/Identity/IdentityService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoginView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/layouts/MainLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/layouts/MainLayout.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,28 +53,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Volumes/Codes/ApplicantPortal/src/Web/Frontend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Volumes/Codes/ApplicantPortal/src/Web/Frontend/src/assets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Composition API Component"
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
     ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -77,8 +89,18 @@
       <option name="presentableId" value="Default" />
       <updated>1698690042094</updated>
       <workItem from="1698690043137" duration="178000" />
-      <workItem from="1702470717767" duration="10400000" />
+      <workItem from="1702470717767" duration="20577000" />
+      <workItem from="1702568089658" duration="2173000" />
     </task>
+    <task id="LOCAL-00001" summary="created application layout">
+      <option name="closed" value="true" />
+      <created>1702490054792</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702490054792</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,6 +108,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="created application layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="created application layout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -93,8 +117,12 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/views/LoginView.vue</url>
           <line>174</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/views/Dashboard.vue</url>
+          <line>15</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
