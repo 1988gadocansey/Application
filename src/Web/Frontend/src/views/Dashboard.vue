@@ -1,7 +1,7 @@
 <script setup>
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from "pinia";
 
-import { useAuthStore, useUsersStore } from '@/stores';
+import { useAuthStore, useUsersStore } from "@/stores";
 
 const authStore = useAuthStore();
 const { user: authUser } = storeToRefs(authStore);
@@ -13,217 +13,321 @@ usersStore.getAll();
 </script>
 
 <template>
-    <div>
-        <section class="xl:mx-auto mb-5">
-            <div class="mb-6 grid grid-cols-12 gap-6">
-                <div class="col-span-12 sm:col-span-6 xl:col-span-3">
-                    <div class="flex flex-col rounded-2xl bg-white">
-                        <div class="flex-1 p-6">
-                            <div class="mb-3 flex items-center justify-between">
-                                <div class="flex items-center justify-center">
-                                    <div
-                                            class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-3 text-xs capitalize leading-none text-white">
-
-                                    <span class="mr-1 inline-flex h-4 w-4 items-center justify-center">
-                                        <svg viewBox="0 0 24 24" width="14" height="14" class="inline-block">
-                                        <path fill="currentColor"
-                                              d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z">
-                                        </path>
-                                        </svg>
-                                    </span>
-                                        <span>notice</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-sm">
-                               resit issues
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-12 sm:col-span-6 xl:col-span-3">
-                    <div class="flex flex-col rounded-2xl bg-white">
-                        <div class="flex-1 p-6">
-                            <div class="mb-3 flex items-center justify-between">
-                                <div class="flex items-center justify-center">
-                                    <div
-                                            class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-3 text-xs capitalize leading-none text-white">
-                                    <span class="mr-1 inline-flex h-4 w-4 items-center justify-center">
-                                        <svg viewBox="0 0 24 24" width="14" height="14" class="inline-block">
-                                        <path fill="currentColor"
-                                              d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z">
-                                        </path>
-                                        </svg>
-                                    </span>
-                                        <span>notice</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-sm">
-                                ssss
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-span-12 sm:col-span-6 xl:col-span-3">
-                    <div class="flex flex-col rounded-2xl bg-white">
-                        <div class="flex-1 p-6">
-                            <div class="mb-3 flex items-center justify-between">
-                                <div class="flex items-center justify-center">
-                                    <div
-                                            class="inline-flex items-center rounded-full border border-red-500 bg-red-500 py-1 px-3 text-xs capitalize leading-none text-white"
-                                    >
-                <span
-                        class="mr-1 inline-flex h-4 w-4 items-center justify-center"
-                ><svg
+  <div>
+    <section class="xl:mx-auto mb-5">
+      <div class="mb-6 grid grid-cols-12 gap-6">
+        <div class="col-span-12 sm:col-span-6 xl:col-span-3">
+          <div class="flex flex-col rounded-2xl bg-white">
+            <div class="flex-1 p-6">
+              <div class="mb-3 flex items-center justify-between">
+                <div class="flex items-center justify-center">
+                  <div
+                    class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-3 text-xs capitalize leading-none text-white"
+                  >
+                    <span
+                      class="mr-1 inline-flex h-4 w-4 items-center justify-center"
+                    >
+                      <svg
                         viewBox="0 0 24 24"
                         width="14"
                         height="14"
                         class="inline-block"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+                        ></path>
+                      </svg>
+                    </span>
+                    <span>Application Type</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-sm">
+                App No: {{ users.formNo }} -
+                {{ users.category }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-12 sm:col-span-6 xl:col-span-3">
+          <div class="flex flex-col rounded-2xl bg-white">
+            <div class="flex-1 p-6">
+              <div class="mb-3 flex items-center justify-between">
+                <div class="flex items-center justify-center">
+                  <div
+                    class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-3 text-xs capitalize leading-none text-white"
+                  >
+                    <span
+                      class="mr-1 inline-flex h-4 w-4 items-center justify-center"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="14"
+                        height="14"
+                        class="inline-block"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+                        ></path>
+                      </svg>
+                    </span>
+                    <span>SoldBy</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-sm">
+                  {{ users.soldBy }} - {{ users.branch }} |
+                <span v-if="users.type==1">
+                    HND
+                </span>
+                  <span v-if="users.type==2">
+                    BTECH
+                </span>
+                  <span v-if="users.type==3">
+                    DIPLOMA
+                </span>
+                  <span v-if="users.type==4">
+                    ACCELERATED
+                </span>
+                  <span v-if="users.type==5">
+                    MTECH
+                </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-12 sm:col-span-6 xl:col-span-3">
+          <div class="flex flex-col rounded-2xl bg-white">
+            <div class="flex-1 p-6">
+              <div class="mb-3 flex items-center justify-between">
+                <div class="flex items-center justify-center">
+                  <div
+                    class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-3 text-xs capitalize leading-none text-white"
+                  >
+                    <span
+                      class="mr-1 inline-flex h-4 w-4 items-center justify-center"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="14"
+                        height="14"
+                        class="inline-block"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+                        ></path>
+                      </svg>
+                    </span>
+                    <span>Calender</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-sm">
+                Year:{{ users.year }} - Status:
+                <span v-if="users.formCompleted && !users.Finalized">
+                  <a
+                    href="#"
+                    id="ama"
+                    class="final md-btn md-btn-danger uk-margin-small-top"
+                    >Finalized Forms</a
+                  >
+                </span>
+                <span v-if="users.Finalized && users.Admitted == false">
+                  Form Locked - Finalized
+                </span>
+                <span v-if="users.Admitted">
+                  Admitted.
+                  <a
+                    target="_blank"
+                    href="https://ttuportal.com/arms/@form.GetApplicantIdFromFormNo(user.FormNo)/letter/print"
+                    >Click to print letter</a
+                  >
+                </span>
+                <span
+                  v-if="
+                    !users.Admitted && !users.Finalized && !users.formCompleted
+                  "
                 >
-                    <path
-                            fill="currentColor"
-                            d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
-                    ></path></svg></span
-                ><span>Academics%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center justify-center">
-                                    <div>
-                                        <h3 class="text-sm leading-tight text-gray-500">
-                                            Calender
-                                        </h3>
-                                        <h1 class="text-1xl font-semibold leading-tight">
-                                            {{$year ?? ''}} - Sem {{$sem ?? ''}}
-                                        </h1>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!---->
-                    </div>
-                </div>
-                <div class="col-span-12 sm:col-span-6 xl:col-span-3">
-                    <div class="flex flex-col rounded-2xl bg-white">
-                        <div class="flex-1 p-6">
-                            <div class="mb-3 flex items-center justify-between">
-                                <div class="flex items-center justify-center">
-                                    <div
-                                            class="inline-flex items-center rounded-full border border-yellow-500 bg-yellow-500 py-1 px-3 text-xs capitalize leading-none text-white">
-                                    <span class="mr-1 inline-flex h-4 w-4 items-center justify-center">
-                                        <svg viewBox="0 0 24 24" width="14" height="14" class="inline-block">
-                                        <path fill="currentColor"
-                                              d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z">
-                                        </path>
-                                        </svg>
-                                    </span>
-                                        <span>Performance</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center justify-center">
-                                    <div>
-                                        <h3
-                                                class="text-sm leading-tight text-gray-500"
-                                        >
-                                            Class
-                                        </h3>
-                                        <h1 class="text-1xl font-semibold leading-tight">
-                                            <div>
-
-                                                {{$class ?? ''}}
-                                            </div>
-                                        </h1>
-                                    </div>
-                                    &nbsp; &nbsp; &nbsp;
-                                    <div>
-                                        <h3
-                                                class="text-sm leading-tight text-gray-500"
-                                        >
-                                            CGPA
-                                        </h3>
-                                        <h1 class="text-1xl font-semibold leading-tight">
-                                            <div>
-
-                                                {{$newCgpa ?? ''}}
-                                            </div>
-                                        </h1>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                  Application Started
+                </span>
+              </div>
             </div>
-            <!-- start new card -->
-            <div class="mb-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
-                <div class="rounded-2xl relative !bg-white pb-5" style="background: white; padding-bottom: 120px;">
-                    <div class="p-3 rounded-t-2xl !h-36" style="">
-                        <div class="flex justify-between items-center">
-                            <span class="rounded-lg p-2 text-sm capitalize leading-none text-blue bg-white">
-                                {{$currentStatus ?? ''}}
-                            </span>
-                            @if($register1 === 'REGISTERED')
-                            <div
-                                    class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-4 text-sm leading-none text-white">
-                                          <span class="mr-2 inline-flex h-4 w-4 items-center justify-center">
-                                              <svg viewBox="0 0 24 24" width="16" height="16" class="inline-block">
-                                              <path fill="currentColor"
-                                                    d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z">
-                                              </path>
-                                              </svg>
-                                          </span>
-                                <span>{{$register1}}</span>
-                            </div>
-                            @else
-                            <a href="/biodataUpdate"
-                               class="border-2 rounded-lg border-white p-2 text-sm capitalize leading-none text-white">
-                                Edit Profile
-                            </a>
-                            @endif
-                        </div>
-                        <div class="absolute">
-                            <div class="flex items-end gap-2 relative" style="top: 42px">
-                                <img alt=""
-                                     class="shadow-lg h-20 w-20 rounded-full ring-white"
-                                     src='<?php echo url("https://photos.ttuportal.com/public/albums/thumbnails/$studentDetail->STNO.jpg")?>'
-                                 />
-                                <div class="">
-                                    biodata
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-2">
-                    @if($currentStatus=="In school")
-                    <a href="{{route('teaching-time-table')}}">
-                        <div class="mb-6 p-6 flex flex-col rounded-2xl bg-white transition-shadow duration-500 last:mb-0 hover:shadow-lg">
-                            <h4 class="text-ellipsis text-sm">Click to see Upcoming Lectures</h4>
-                        </div>
-                    </a>
-                    @endif
+          </div>
+        </div>
 
-                    @if($register1 === 'REGISTERED')
-                    <a href="{{route('download-registration-slip')}}" target="_blank">
-                        <div class="mb-6 p-6 flex flex-col rounded-2xl bg-white transition-shadow duration-500 last:mb-0 hover:shadow-lg">
-                            <h4 class="text-ellipsis text-sm">Download Registration Slip</h4>
-                        </div>
-                    </a>
-                    @endif
+        <div class="col-span-12 sm:col-span-6 xl:col-span-3">
+          <div class="flex flex-col rounded-2xl bg-white">
+            <div class="flex-1 p-6">
+              <div class="mb-3 flex items-center justify-between">
+                <div class="flex items-center justify-center">
+                  <div
+                    class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1 px-3 text-xs capitalize leading-none text-white"
+                  >
+                    <span
+                      class="mr-1 inline-flex h-4 w-4 items-center justify-center"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="14"
+                        height="14"
+                        class="inline-block"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+                        ></path>
+                      </svg>
+                    </span>
+                    <span>Status</span>
+                  </div>
                 </div>
+              </div>
+
+              <div class="text-sm">
+                <span v-if="users.PictureUploaded">
+                  <h4 class="text-sm">Passport Photo uploaded</h4>
+                </span>
+                <span v-if="!users.PictureUploaded">
+                  <h4 class="text-sm">
+                    <a
+                      href="#"
+                      id="ama"
+                      class="final md-btn md-btn-danger uk-margin-small-top"
+                    >
+                      Passport Photo not uploade. Click to upload.</a
+                    >
+                  </h4>
+                </span>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <!-- start new card -->
+      <div class="mb-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div
+                  class="flex flex-row items-center rounded-2xl bg-white dark:bg-slate-900/70"
+          >
+              <div class="flex-1 p-6">
+                  <div
+                          class="block items-center justify-around md:flex lg:justify-center"
+                  >
+                      <div class="mb-6 flex items-center justify-center md:mb-0">
+                          <div class="lg:mx-12">
+                              <span v-if="users?.pictureUploaded">
+                                  <img
+                                          class="inline-block h-40 w-60 rounded-full ring-2 ring-white"
+                                          src="https://photos.ttuportal.com/public/albums/thumbnails/2022103563.jpg"
+                                          alt=""
+                                  />
+                              </span>
 
-        </section>
-    </div>
+                              <span v-if="!users?.pictureUploaded ">
+
+                                  <router-link
+                                          class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+                                          :class="[$route.name === 'Modal' ? activeClass : inactiveClass]"
+                                          to="/modal"
+                                  >
+                                      <button
+                                              class="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                                      >
+                                          Start application
+                                      </button>
+                                  </router-link>
+
+                              </span>
+                          </div>
+                      </div>
+                      <div class="flex items-center justify-center">
+                          <div class="space-y-3 text-center md:text-left lg:mx-12">
+                              <div class="flex justify-center md:block">
+                                  <label class="switch"
+                                  ><input
+                                          type="checkbox"
+                                          name="notifications-switch"
+                                          value="true"
+                                  /><span class="check"></span
+                                  ><span class="pl-2">Notifications</span></label
+                                  >
+                              </div>
+                              <h1 class="text-1xl">
+                                  Howdy, <b> {{ users?.fullName }}</b
+                              >!
+                              </h1>
+                              <p class="text-1xl">
+                                  Form No:
+                                  <b>{{ users?.formNo }} </b>
+                              </p>
+                              <p class="text-1xl">
+                                  Application Type
+                                  <b>{{ users?.category }}</b>
+                              </p>
 
 
+                              <span v-if="users?.category == 'Undergraduate'">
+
+                                      Best Six Grade <b>9 </b>
+
+                              </span>
+
+                              <div class="flex justify-center md:block">
+                                  <div
+                                          class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1.5 px-4 text-sm capitalize leading-none text-white"
+                                  >
+                  <span
+                          class="mr-2 inline-flex h-4 w-4 items-center justify-center"
+                  ><svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          class="inline-block"
+                  >
+                      <path
+                              fill="currentColor"
+                              d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"
+                      ></path></svg
+                  ></span>
+                                      <span v-if="users?.admitted">Admitted!</span>
+
+                                      <span class="text-red-500" v-if="!users.admitted">Admitted!</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!---->
+          </div>
+        <div class="flex flex-col gap-2">
+
+          <a href="{{route('teaching-time-table')}}">
+            <div
+              class="mb-6 p-6 flex flex-col rounded-2xl bg-white transition-shadow duration-500 last:mb-0 hover:shadow-lg"
+            >
+              <h4 class="text-ellipsis text-sm">
+                Click to see Upcoming Lectures
+              </h4>
+            </div>
+          </a>
+
+          <a href="{{route('download-registration-slip')}}" target="_blank">
+            <div
+              class="mb-6 p-6 flex flex-col rounded-2xl bg-white transition-shadow duration-500 last:mb-0 hover:shadow-lg"
+            >
+              <h4 class="text-ellipsis text-sm">Download Registration Slip</h4>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </div>
 </template>

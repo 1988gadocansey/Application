@@ -6,7 +6,7 @@ namespace ApplicantPortal.Application.Biodata.Commands.CreateBiodata;
 
 public record CreateBiodataRequest : IRequest<int>
 {
-    public Guid Id { get; }
+    public Guid Id { get; set; }
     public long ApplicationNumber { get; set; }
     public string? FirstName { get; init; }
     public string? LastName { get; init; }

@@ -26,7 +26,7 @@ public record ApplicantModel : BaseAuditableEntity
     public int? RegionId { get; set; }
     public RegionModel? Region { get; set; }
     public int? NationalityId { get; set; }
-    public virtual CountryModel? Nationality { get; set; }
+    public  CountryModel? Nationality { get; set; }
     public bool? ResidentialStatus { get; set; }
     public string? GuardianName { get; set; }
     public PhoneNumber? GuardianPhone { get; set; }

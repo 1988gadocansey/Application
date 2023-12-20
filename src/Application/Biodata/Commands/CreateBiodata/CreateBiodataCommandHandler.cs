@@ -7,18 +7,21 @@ using ApplicantPortal.Application.Common.Exceptions;
 
 namespace ApplicantPortal.Application.Biodata.Commands.CreateBiodata;
 
-public class CreateBiodataCommandHandler(IApplicationDbContext context, IUser  currentUserService,   IIdentityService identityService, IApplicantRepository applicantRepository) : IRequestHandler<CreateBiodataRequest, int>
+public class CreateBiodataCommandHandler(IApplicationDbContext context, IUser currentUserService,
+    IIdentityService identityService,
+    IApplicantRepository applicantRepository) : IRequestHandler<CreateBiodataRequest, int>
 {
-   
-      
     public async Task<int> Handle(CreateBiodataRequest request, CancellationToken cancellationToken)
     {
         var userId = currentUserService.Id;
         var userDetails = await identityService.GetApplicationUserDetails(userId, cancellationToken);
-        var region = await context.RegionModels.FirstOrDefaultAsync(s => s.Id == request.RegionId,cancellationToken);
-        var religion = await context.ReligionModels.FirstOrDefaultAsync(s => s.Id == request.ReligionId,cancellationToken);
-        var district = await context.DistrictModels.FirstOrDefaultAsync(s => s.Id == request.District,cancellationToken);
-        var nationality = await context.CountryModels.FirstOrDefaultAsync(s => s.Id == request.NationalityId,cancellationToken);
+        var region = await context.RegionModels.FirstOrDefaultAsync(s => s.Id == request.RegionId, cancellationToken);
+        var religion =
+            await context.ReligionModels.FirstOrDefaultAsync(s => s.Id == request.ReligionId, cancellationToken);
+        var district =
+            await context.DistrictModels.FirstOrDefaultAsync(s => s.Id == request.District, cancellationToken);
+        var nationality =
+            await context.CountryModels.FirstOrDefaultAsync(s => s.Id == request.NationalityId, cancellationToken);
         var calender = await applicantRepository.GetConfiguration();
         // var FormerSchool = context.FormerSchoolModels.FirstOrDefault(s => s.Id == request.SC);
         var applicantSearch = context.ApplicantModels.Where(s => s.ApplicationUserId == userId);
@@ -64,7 +67,6 @@ public class CreateBiodataCommandHandler(IApplicationDbContext context, IUser  c
                 YearOfAdmission = calender?.Year,
                 Admitted = false,
                 HallFeesPaid = Money.Create("GHS", 0)
-
             };
 
             await context.ApplicantModels.AddAsync(applicant, cancellationToken);
@@ -79,6 +81,7 @@ public class CreateBiodataCommandHandler(IApplicationDbContext context, IUser  c
             {
                 throw new NotFoundException(nameof(ApplicantModel), request.Id.ToString());
             }
+
             applicant.Title = request.Title;
             applicant.ApplicationUserId = currentUserService.Id;
             // applicant.ApplicationNumber = ApplicationNumber.Create(request.ApplicationNumber);
@@ -118,13 +121,20 @@ public class CreateBiodataCommandHandler(IApplicationDbContext context, IUser  c
         }
 
         // go to issue and update biodata done as true
-        var applicantIssues = await context.ProgressModels.FirstOrDefaultAsync(u => u.ApplicationUserId == currentUserService.Id, cancellationToken);
+        await UpdateProgress(cancellationToken);
+        var result = await context.SaveChangesAsync(cancellationToken);
+        return result == 1 ? 200 : 500;
+    }
+
+    async Task UpdateProgress(CancellationToken cancellationToken)
+    {
+        var applicantIssues =
+            await context.ProgressModels.FirstOrDefaultAsync(u => u.ApplicationUserId == currentUserService.Id,
+                cancellationToken);
         if (applicantIssues != null)
         {
             applicantIssues.Biodata = true;
             context.ProgressModels.Update(applicantIssues);
         }
-        var result = await context.SaveChangesAsync(cancellationToken);
-        return result == 1 ? 200 : 500;
     }
 }
