@@ -17,6 +17,7 @@
         "pinia": "^2.1.6",
         "vee-validate": "^4.5.8",
         "vue": "^3.3.4",
+        "vue-image-crop-upload": "^3.0.3",
         "vue-router": "^4.2.5",
         "vue3-google-login": "^2.0.15",
         "yup": "^0.32.11"

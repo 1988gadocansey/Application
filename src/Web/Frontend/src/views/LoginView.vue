@@ -10,7 +10,8 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Pin Code is required"),
 });
 
-function onSubmit(values, {setErrors}) {
+function onSubmit(values, { setErrors }) {
+  
   const authStore = useAuthStore();
   const {email, password} = values;
 
