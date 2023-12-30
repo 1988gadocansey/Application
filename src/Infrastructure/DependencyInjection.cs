@@ -4,6 +4,7 @@ using ApplicantPortal.Infrastructure.Data;
 using ApplicantPortal.Infrastructure.Data.Interceptors;
 using ApplicantPortal.Infrastructure.Data.Repositories;
 using ApplicantPortal.Infrastructure.Identity;
+using ApplicantPortal.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -49,7 +50,8 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
-
+        services.AddTransient<IApplicantRepository, ApplicantService>();
+        services.AddTransient<IPhotoUploadService, PhotoUploadService>();
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
         services.AddTransient<IApplicantRepository, ApplicantRepository>();

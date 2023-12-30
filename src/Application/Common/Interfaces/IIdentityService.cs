@@ -17,5 +17,13 @@ public interface IIdentityService
     Task<UserDto> GetApplicationUserDetails(string? userId, CancellationToken cancellationToken);
     
     Task<Result> GenerateVoucher(int? quantity, ApplicationType type, string? owner,CancellationToken cancellationToken);
+    Task UpdateApplicationPictureStatus(string? userId, ICollection<FileDto> photo, CancellationToken cancellationToken);
+
+    Task<bool> ChangeApplicantFormType(string? userId, string? formType);
+    Task<string> Shuffle(string str);
+       Task<string> GetSerial();
+     Task<string> GetPin();
+
+    Task<Result> GenerateVoucher(int? quantity, string? type, string? owner,CancellationToken cancellationToken);
 
 }

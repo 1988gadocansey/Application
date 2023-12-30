@@ -94,7 +94,7 @@ public record ApplicantModel : BaseAuditableEntity
         get =>
             $"  {this.Title} {this.ApplicantName?.LastName} {this.ApplicantName?.FirstName} {this.ApplicantName?.Othernames}";
     }
-    public ICollection<ProgrammeModel>? Programmes { get; set; }
+    public IEnumerable<ProgrammeModel>? Programmes { get; set; }
     public IEnumerable<ResultUploadModel>? ResultUploads { get; set; }
     public IEnumerable<WorkingExperienceModel?>? WorkingExperiences { get; set; }
     public IEnumerable<AcademicExperienceModel?>? AcademicExperiences { get; set; }

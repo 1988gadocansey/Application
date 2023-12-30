@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PhotoUpload\Events\" />
+    <Folder Include="PhotoUpload\Queries\" />
+  </ItemGroup>
+
 </Project>

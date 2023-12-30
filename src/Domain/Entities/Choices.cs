@@ -3,7 +3,7 @@ namespace ApplicantPortal.Domain.Entities;
 public record Choices
 {
     [Key]
-    public int Id { set; get; }
+    public int Id { init; get; }
     public ApplicantModel? Applicant { get; init; }
     public ProgrammeModel? FirstChoice { get; init; }
     public ProgrammeModel? SecondChoice { get; init; }

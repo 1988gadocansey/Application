@@ -165,20 +165,16 @@ usersStore.getAll();
               </div>
 
               <div class="text-sm">
-                <span v-if="users.PictureUploaded">
+                <span v-if="users.PictureUploaded && !users.admitted">
                   <h4 class="text-sm text-green-600">
-                    Passport Photo uploaded.
+                  NB: Admission Pending.  Passport Photo uploaded.
                   </h4>
                 </span>
-                <span v-if="!users.PictureUploaded">
+                <span v-if="!users.PictureUploaded && !users.admitted">
                   <h4 class="text-sm text-red-600">
-                    <a
-                      href="#"
-                      id="ama"
-                      class="final md-btn md-btn-danger uk-margin-small-top"
-                    >
-                      Passport Photo not uploaded.</a
-                    >
+
+                      Status:  Applicant
+
                   </h4>
                 </span>
               </div>
@@ -197,20 +193,20 @@ usersStore.getAll();
             >
               <div class="mb-6 flex items-center justify-center md:mb-0">
                 <div class="lg:mx-12">
-                  <span v-if="users?.pictureUploaded">
+                  <span>
                     <img
                       class="w-full h-full rounded-full"
                       src="https://photos.ttuportal.com/public/albums/thumbnails/2022103563.jpg"
-                      alt=""
+                      onerror="this.onerror=function my(){return this.src='https://srms.ttuportal.com/public/albums/students/USER.JPG';};this.src='https://photos.ttuportal.com/public/albums/thumbnails/0720000342.JPG';"
+                      alt="https://srms.ttuportal.com/public/albums/students/USER.JPG"
                     />
                   </span>
+                  <p>&nbsp;</p>
 
-                  <span v-if="!users?.pictureUploaded">
+<!--                  <span v-if="!users?.pictureUploaded">
                     <router-link
-                      class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-                      :class="[
-                        $route.name === 'Modal' ? activeClass : inactiveClass,
-                      ]"
+
+
                       to="/modal"
                     >
                       <button
@@ -219,7 +215,7 @@ usersStore.getAll();
                         Start application
                       </button>
                     </router-link>
-                  </span>
+                  </span>-->
                 </div>
               </div>
               <div class="flex items-center justify-center">
@@ -253,6 +249,7 @@ usersStore.getAll();
 
                   <div class="flex justify-center md:block">
                     <div
+                        v-if="users?.admitted"
                       class="inline-flex items-center rounded-full border border-blue-500 bg-blue-500 py-1.5 px-4 text-sm capitalize leading-none text-white"
                     >
                       <span
@@ -268,11 +265,30 @@ usersStore.getAll();
                             d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"
                           ></path></svg
                       ></span>
-                      <span v-if="users?.admitted">Admitted!</span>
+                      <span>Admitted!</span>
 
-                      <span class="text-red-500" v-if="!users.admitted"
-                        >Admitted!</span
+
+                    </div>
+                    <div
+                        v-if="!users?.admitted"
+                        class="inline-flex items-center rounded-full border border-red-500 bg-red-500 py-1.5 px-4 text-sm capitalize leading-none text-white"
+                    >
+                      <span
+                          class="mr-2 inline-flex h-4 w-4 items-center justify-center"
+                      ><svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          class="inline-block"
                       >
+                          <path
+                              fill="currentColor"
+                              d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"
+                          ></path></svg
+                      ></span>
+                      <span> Pending!</span>
+
+
                     </div>
                   </div>
                 </div>
@@ -282,15 +298,7 @@ usersStore.getAll();
           <!---->
         </div>
         <div class="flex flex-col gap-2">
-          <a v-if="users?.admitted" href="{{route('teaching-time-table')}}">
-            <div
-              class="mb-6 p-6 flex flex-col rounded-2xl bg-white transition-shadow duration-500 last:mb-0 hover:shadow-lg"
-            >
-              <h4 class="text-ellipsis text-sm">
-                Click to see Upcoming Lectures
-              </h4>
-            </div>
-          </a>
+
 
           <router-link to="/photo/upload" v-if="!users?.admitted">
             <div
@@ -303,6 +311,21 @@ usersStore.getAll();
               </button>
             </div>
           </router-link>
+          <a v-if="!users?.pictureUploaded" >
+            <div
+                class="mb-6 p-6 flex flex-col rounded-2xl bg-white transition-shadow duration-500 last:mb-0 hover:shadow-lg"
+            >
+              <h4 class="text-sm text-red-600">
+
+              1.  Passport Photo not uploaded.
+                <a href=""
+
+                   class="final md-btn md-btn-danger uk-margin-small-top"
+                > click to upload.</a
+                >
+              </h4>
+            </div>
+          </a>
         </div>
       </div>
     </section>

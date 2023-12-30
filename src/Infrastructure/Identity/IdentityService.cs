@@ -112,29 +112,29 @@ public class IdentityService(IApplicationDbContext context, UserManager<Applicat
     }
 
 
-    private static async Task<string> GetPin()
+    public  async Task<string> GetPin()
     {
         const string str = "2F934678ABCDGHJKLMNPRSTUVWXY";
         var shuffled = Shuffle(str);
-        var vcode = shuffled[..9];
+        var vcode = shuffled.Result[..9];
         return await Task.FromResult(vcode.ToUpper());
     }
 
-    private static async Task<string> GetSerial()
+    public  async Task<string> GetSerial()
     {
         const string str = "ABCDEFGHJKLMNPRSTUVWXYZ2346789";
         var shuffled = Shuffle(str);
-        var vcode = shuffled.Substring(0, 4);
+        var vcode = shuffled.Result[..4];
         var real = vcode.ToUpper();
         var data = "TTU" + (DateTime.Now.Year).ToString().TakeLast(4) + real;
         return await Task.FromResult(data);
     }
 
-    private static string Shuffle(string str)
+    public async Task<string>  Shuffle(string str)
     {
         Random num = new Random();
         string rand = new string(str.ToCharArray().OrderBy(s => (num.Next(2) % 2) == 0).ToArray());
-        return rand;
+      return await  Task.FromResult(rand);
     }
 
     public async Task<Result> GenerateVoucher(int? quantity, ApplicationType type, string? owner,
@@ -178,4 +178,73 @@ public class IdentityService(IApplicationDbContext context, UserManager<Applicat
 
         return Result.Success();
     }
+    public async Task UpdateApplicationPictureStatus(string? userId, ICollection<FileDto> photo, CancellationToken cancellationToken)
+    {
+        var user = userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user != null)
+        {
+            user.PictureUploaded = true;
+            await userManager.UpdateAsync(user);
+            
+        }
+    }
+    public async Task<bool> ChangeApplicantFormType(string? userId, string? formType)
+    {
+        var user = userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user == null)
+        {
+            return false;
+        }
+
+        user.Category = formType;
+        await userManager.UpdateAsync(user);
+        return true;
+    }
+    public async  Task<Result> GenerateVoucher(int? quantity, string? type, string? owner, CancellationToken cancellationToken){
+        for (int a = 0; a < quantity; a++)
+        {
+
+
+            var Pin = GetPin();
+            var Serial = GetSerial();
+            //ApplicationUser user = new();
+            ApplicationUser applicationUser = new();
+            Guid guid = Guid.NewGuid();
+            applicationUser.Id = guid.ToString();
+            applicationUser.UserName = Serial.Result+a;
+            applicationUser.Email = Serial.Result+a+"@ttu.edu.gh";
+            applicationUser.NormalizedUserName = Serial.Result+a;
+            applicationUser.Year = (DateTime.Now.Year).ToString();
+            applicationUser.Pin = Pin.Result;
+            applicationUser.SoldBy = owner!.ToUpper();
+            applicationUser.Sold = false;
+            applicationUser.Started = false;
+            applicationUser.Category = type!.ToUpper();
+            applicationUser.EmailConfirmed = true;
+            applicationUser.Category ="Undergraduate";
+            applicationUser.ForeignApplicant = false;
+            applicationUser.NormalizedEmail = Serial + "@ttu.edu.gh"+a;
+            var hasedPassword = passwordHasher.HashPassword(applicationUser, Pin.Result);
+            applicationUser.SecurityStamp = Guid.NewGuid().ToString();
+            applicationUser.PasswordHash = hasedPassword;
+            Console.Write("User created successfully in memory");
+  
+            var result = userManager.CreateAsync(applicationUser).Result;
+            Console.Write("User created successfully in memory");
+            if (!result.Succeeded)
+            {
+                continue;
+            }
+
+            await  context.SaveChangesAsync(cancellationToken);
+            Console.WriteLine("User created successfully in DB");
+
+        }
+      
+        return     Result.Success();
+    }
+     
+   
+
+    
 }
