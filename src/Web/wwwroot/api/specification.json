@@ -6,6 +6,69 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Dashboard": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "operationId": "Index",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/PhotoUpload": {
+      "post": {
+        "tags": [
+          "PhotoUpload"
+        ],
+        "operationId": "UploadImages",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadPictureRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -757,6 +820,207 @@
   },
   "components": {
     "schemas": {
+      "UserDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "formNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "started": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/ApplicationType"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "sold": {
+            "type": "boolean"
+          },
+          "soldBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "branch": {
+            "type": "string",
+            "nullable": true
+          },
+          "teller": {
+            "type": "string",
+            "nullable": true
+          },
+          "tellerPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "formCompleted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "pictureUploaded": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "finalized": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "year": {
+            "type": "string",
+            "nullable": true
+          },
+          "resultUploaded": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "admitted": {
+            "type": "boolean"
+          },
+          "pin": {
+            "type": "string",
+            "nullable": true
+          },
+          "foreignApplicant": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "lastLogin": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "ApplicationType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Certificate",
+          "Bridging",
+          "Diploma",
+          "Hnd",
+          "Topup",
+          "Degree",
+          "Masters",
+          "PhD"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "UploadPictureRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileDto"
+            }
+          }
+        }
+      },
+      "FileDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Stream"
+              }
+            ]
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Stream": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MarshalByRefObject"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "canRead": {
+                "type": "boolean"
+              },
+              "canWrite": {
+                "type": "boolean"
+              },
+              "canSeek": {
+                "type": "boolean"
+              },
+              "canTimeout": {
+                "type": "boolean"
+              },
+              "length": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "position": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "readTimeout": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "writeTimeout": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "MarshalByRefObject": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,

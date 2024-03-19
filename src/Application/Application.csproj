@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="PhotoUpload\Events\" />
     <Folder Include="PhotoUpload\Queries\" />
+    <Folder Include="Preview\" />
   </ItemGroup>
 
 </Project>

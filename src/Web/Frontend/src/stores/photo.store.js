@@ -30,11 +30,15 @@ export const usePhotoStore = defineStore({
       }
 
       try {
-        const response = await fetch(photoUrl, {
-          method: "POST",
-          body: formData,
-        });
-        console.log("form data " + formData);
+          const response = await fetch(photoUrl, {
+              method: "POST",
+              body: formData,
+              headers: {
+                  'Accept': 'application/octet-stream',
+              },
+          });
+
+          console.log("form data " + formData);
         if (response.ok) {
           const responseData = await response.json();
           console.log("Upload successful:", responseData);

@@ -18,6 +18,7 @@ public class PhotoUpload : EndpointGroupBase
 
     public async Task<int> UploadImages(IEnumerable<IFormFile> formFiles, ISender sender, UploadPictureRequest command)
     {
+        Console.WriteLine("im in the upload controller");
         foreach (var formFile in formFiles)
         {
             if (formFile.Length <= 250000)

@@ -1,20 +1,14 @@
-using MediatR;
-using Microsoft.Extensions.Logging;
 using ApplicantPortal.Domain.Events;
-namespace ApplicantPortal.Domain.Events;
+using Microsoft.Extensions.Logging;
 
-public class BioDataCreatedEventHandler : INotificationHandler<BiodataStartedEvent>
+namespace ApplicantPortal.Application.Biodata.EventHandlers;
+
+public class BioDataCreatedEventHandler(ILogger<BioDataCreatedEventHandler> logger)
+    : INotificationHandler<BiodataStartedEvent>
 {
-    private readonly ILogger<BioDataCreatedEventHandler> _logger;
-
-    public BioDataCreatedEventHandler(ILogger<BioDataCreatedEventHandler> logger)
-    {
-        _logger = logger;
-    }
-
     public Task Handle(BiodataStartedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("ApplicantPortal Biodata started : {DomainEvent}", notification.GetType().Name);
+        logger.LogInformation("OnlineApplicationSystem Biodata started : {DomainEvent}", notification.GetType().Name);
 
         return Task.CompletedTask;
     }

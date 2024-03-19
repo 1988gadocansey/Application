@@ -21,9 +21,9 @@ public record GradeModel
 {
     [Key]
     public int Id { set; get; }
-    private string? Name { set; get; }
-    private int Value { set; get; }
-    private string? Comment { set; get; }
-    private int Exam { set; get; }
+    public string? Name { set; get; }
+    public int Value { set; get; }
+    public string? Comment { set; get; }
+    public int Exam { set; get; }
     
 }

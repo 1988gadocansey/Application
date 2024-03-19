@@ -10,7 +10,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
-        builder.WithOrigins("http://localhost:3000")
+        builder.WithOrigins("http://localhost:4200","http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()));
 

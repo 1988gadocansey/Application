@@ -1,4 +1,4 @@
-namespace Microsoft.Extensions.DependencyInjection.ApplicantForms.EventHandlers;
+namespace ApplicantPortal.Application.Biodata.EventHandlers;
 
 public class FormCompletedEventHandler
 {

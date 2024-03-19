@@ -41,7 +41,7 @@ usersStore.getAll();
                 </div>
               </div>
               <div class="text-sm">
-                No.{{ users.formNo }} -
+                AppNo.{{ users.formNo }} -
                 {{ users.category }}
               </div>
             </div>
@@ -108,7 +108,7 @@ usersStore.getAll();
               </div>
 
               <div class="text-sm">
-                Admission Year: &nbsp;{{ users.year }}
+                 Year: &nbsp;{{ users.year }}
                 <!-- - Status:
                 <span v-if="users.formCompleted && !users.Finalized">
                   <a

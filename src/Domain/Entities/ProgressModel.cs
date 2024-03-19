@@ -19,7 +19,8 @@ namespace ApplicantPortal.Domain.Entities;
 
 public record ProgressModel : BaseAuditableEntity
 {
-    //public virtual ApplicantModel ApplicantModel { get; set; }
+    
+
     public string? ApplicationUserId { set; get; }
     public bool? Biodata { set; get; }
     public bool Results { set; get; }
