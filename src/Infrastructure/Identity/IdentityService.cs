@@ -245,6 +245,15 @@ public class IdentityService(IApplicationDbContext context, UserManager<Applicat
     }
      
    
-
+    public async Task Finalized(string userId)
+    {
+        var user = userManager.Users.SingleOrDefault(u => u.Id == userId);
+        if (user != null)
+        {
+            user.Finalized = true;
+            user.FormCompleted = true;
+            await userManager.UpdateAsync(user);
+        }
+    }
     
 }

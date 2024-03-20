@@ -1,8 +1,6 @@
-using MediatR;
-
-namespace OnlineApplicationSystem.Application.Preview.Commands;
+namespace ApplicantPortal.Application.Preview.Commands;
 
 public class FinalizedRequest : IRequest<int>
 {
-    public string Id { get; set; }
+    public string? Id { get; set; }
 }

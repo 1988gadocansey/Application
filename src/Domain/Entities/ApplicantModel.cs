@@ -80,6 +80,7 @@ public record ApplicantModel : BaseAuditableEntity
     public string? SponsorShipLocation { get; set; }
     public string? SponsorShipCompanyContact { get; set; }
     public string? ApplicationUserId { get; set; }
+    public string? PreviousIndexNumber { get; set; }
     public static ApplicantName ChangeName(ApplicantName Name)
     {
         if (object.ReferenceEquals(Name, null))

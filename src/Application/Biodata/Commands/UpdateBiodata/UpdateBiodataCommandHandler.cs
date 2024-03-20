@@ -21,7 +21,7 @@ public class UpdateBiodataCommandHandler(IApplicationDbContext context, IUser cu
         applicant.Title = request.Title;
         applicant.ApplicationUserId = currentUserService.Id;
         applicant.ApplicationNumber = Domain.ValueObjects.ApplicationNumber.Create(request.ApplicationNumber);
-        applicant.ApplicantName = Domain.ValueObjects.ApplicantName.Create(request.FirstName, request.LastName, request.OtherName);
+        applicant.ApplicantName = Domain.ValueObjects.ApplicantName.Create(request.FirstName, request.LastName, request.OtherName!);
         applicant.Title = request.Title;
         applicant.Gender = request.Gender;
         applicant.Email = Domain.ValueObjects.EmailAddress.Create(request.Email);

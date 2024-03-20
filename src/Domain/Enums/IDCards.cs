@@ -1,11 +1,12 @@
 namespace ApplicantPortal.Domain.Enums;
 
-public enum IDCards
+public enum IdCards
 {
     GhanaCard,
     VotersCard,
     NHIS,
     PassPort,
     DriversLicense,
-    Other
+    Other,
+    BirthCertificate
 }

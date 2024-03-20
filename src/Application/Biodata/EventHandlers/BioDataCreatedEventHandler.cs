@@ -8,7 +8,7 @@ public class BioDataCreatedEventHandler(ILogger<BioDataCreatedEventHandler> logg
 {
     public Task Handle(BiodataStartedEvent notification, CancellationToken cancellationToken)
     {
-        logger.LogInformation("OnlineApplicationSystem Biodata started : {DomainEvent}", notification.GetType().Name);
+        logger.LogInformation("Application portal  Biodata started : {DomainEvent}", notification.GetType().Name);
 
         return Task.CompletedTask;
     }

@@ -23,53 +23,74 @@ public class FinalizedCommandHandler(
         var core = new int[8];
         var coreAlt = new int[7];
         var electives = new int[20];
-        var applicant = await context.ApplicantModels.FirstOrDefaultAsync(a => a.ApplicationUserId == currentUserService.Id, cancellationToken);
+        var applicant =
+            await context.ApplicantModels.FirstOrDefaultAsync(a => a.ApplicationUserId == currentUserService.Id,
+                cancellationToken);
         if (applicant == null)
         {
             throw new NotFoundException(nameof(ApplicantModel), currentUserService.Id!);
         }
+
         var qualifiesMatured = await applicantRepository.QualifiesMature(applicant.Age);
         // go through issue table to see if there are issues to prevent him from finalizing
         //lets create issue flag here
-        var applicantIssues = context.ProgressModels.FirstOrDefaultAsync(u => u.ApplicationUserId == currentUserService.Id, cancellationToken: cancellationToken);
+        var applicantIssues =
+            await context.ProgressModels.FirstOrDefaultAsync(u => u.ApplicationUserId == currentUserService.Id,
+                cancellationToken: cancellationToken);
 
         if (applicantIssues != null)
         {
-            applicantIssues.Result = true;
+            applicantIssues.Results = true;
             applicantIssues.FormCompletion = true;
             context.ProgressModels.Update(applicantIssues);
         }
-        await context.SaveChangesAsync(cancellationToken);
 
-        if (applicantIssues.Picture == false || applicantIssues.FormCompletion == false || applicantIssues.Referee == false || applicantIssues.ResearchInformation == false || applicantIssues.AcademicExperience == false)
+        await context.SaveChangesAsync(cancellationToken);
+        if (userFormDetails.Category == "Postgraduate")
         {
-            // throw new NotFoundException(nameof(ApplicantModel), request.Id);
-            //  throw new NotFoundException("Error finalizing form. Check.", request.Id);
-            return 0;
+            if (applicantIssues!.Picture == false || applicantIssues!.FormCompletion == false ||
+                applicantIssues!.Referee == false || applicantIssues!.ResearchInformation == false ||
+                applicantIssues.AcademicExperience == false)
+            {
+                throw new NotFoundException("Error finalizing form. Check.", request.Id!);
+            }
         }
-        var smsMessage = "Hi " + applicant.ApplicantName!.FirstName + " your application has been received. Vist apply.ttuportal.com with " + userFormDetails.UserName + " as serial and " + userFormDetails.Pin + " as pin to check your admission status.";
-        var emailMessage = "Hi " + applicant.ApplicantName.FirstName + " your application has been received. Vist apply.ttuportal.com with " + userFormDetails.UserName + " as serial and " + userFormDetails.Pin + " as pin to check your admission status.";
+        else if (applicantIssues!.Picture == false || applicantIssues!.FormCompletion == false ||
+                 applicantIssues!.Results == false)
+        {
+            throw new NotFoundException("Error finalizing form. Check.", request.Id!);
+        }
+
+        var smsMessage = "Hi " + applicant.ApplicantName!.FirstName +
+                         " your application has been received. Visit apply.ttuportal.com with " +
+                         userFormDetails.UserName + " as serial and " + userFormDetails.Pin +
+                         " as pin to check your admission status.";
+        var emailMessage = "Hi " + applicant.ApplicantName.FirstName +
+                           " your application has been received. Visit apply.ttuportal.com with " +
+                           userFormDetails.UserName + " as serial and " + userFormDetails.Pin +
+                           " as pin to check your admission status.";
         // update the applicant issues
         applicantIssues.FormCompletion = true;
         applicantIssues.Age = qualifiesMatured;
         context.ProgressModels.Update(applicantIssues);
         await context.SaveChangesAsync(cancellationToken);
-        await identityService.Finalized(currentUserService.UserId);
+        await identityService.Finalized(currentUserService.Id!);
         var mailData = new MailData(
-              new List<string> { applicant.Email.Value },
-              "TTU Admissions Forms",
-               body,
-              "TTU",
-              "TTU",
-              "admissions@ttu.edu.gh",
-              "TTU Admissions",
-               new List<string> { "admissions@ttu.edu.gh" },
-               new List<string> { "gadocansey@gmail.com" }
-            );
+            [applicant.Email!.Value!],
+            "TTU Admissions Forms",
+            body,
+            "TTU",
+            "TTU",
+            "admissions@ttu.edu.gh",
+            "TTU Admissions",
+            new List<string> { "admissions@ttu.edu.gh" },
+            new List<string> { "gad.ocansey@ttu.edu.gh" }
+        );
 
         // await _emailSender.SendEmail(mailData, cancellationToken);
         await emailSender.SendEmail(applicant.Email.Value, subject, emailMessage, from);
-        await smsSender.SendSms(applicant.Phone.Number, smsMessage, applicant.ApplicationNumber.ApplicantNumber, currentUserService.UserId, cancellationToken);
-        return 1;
+        await smsSender.SendSms(applicant.Phone!.Number!, smsMessage, applicant!.ApplicationNumber!.ApplicantNumber,
+            currentUserService.Id!, cancellationToken);
+        return applicantIssues.Id;
     }
 }

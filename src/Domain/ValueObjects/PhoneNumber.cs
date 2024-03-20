@@ -6,7 +6,7 @@ namespace ApplicantPortal.Domain.ValueObjects;
 public record PhoneNumber : ValueObject
 {
     private string? AreaCode { get; }
-    private string? Number { get; }
+    public string? Number { get; }
     private PhoneNumber(string? areaCode) {
         AreaCode = areaCode;
     }
