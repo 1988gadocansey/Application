@@ -1,3 +1,5 @@
+using ApplicantPortal.Application;
+using ApplicantPortal.Infrastructure;
 using ApplicantPortal.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);

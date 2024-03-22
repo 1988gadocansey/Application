@@ -15,7 +15,7 @@ public class FinalizedCommandHandler(
 {
     public async Task<int> Handle(FinalizedRequest request, CancellationToken cancellationToken)
     {
-        const string email = "hello";
+         
         const string? subject = "TTU Admissions";
         const string? body = "Your Admission Form has been received.";
         const string? from = "TTU Admissions";

@@ -56,7 +56,7 @@ public class PhotoUploadService(
             image.Mutate(x => x.Resize(413, 531));
             try
             {
-                 image.Save(fileLocation);
+                 await image.SaveAsync(fileLocation, cancellationToken);
             }
             catch (Exception exp)
             {
@@ -66,7 +66,7 @@ public class PhotoUploadService(
             }
 
             using var client = new SftpClient(host, port, username, password);
-            client.Connect();
+            await client.ConnectAsync(cancellationToken);
             if (client.IsConnected)
             {
                 Console.WriteLine("I'm connected to the client");

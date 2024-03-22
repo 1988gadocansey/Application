@@ -5,7 +5,7 @@ namespace ApplicantPortal.Application.Common.Interfaces;
 
 public interface IDocumentUploadService
 {
-    string UserId { get; set; }
+    string? UserId { get; set; }
     Task<int> UploadFiles(long applicant, IEnumerable<FileDto> files, CancellationToken cancellationToken);
 
     Task<byte[]?> DownloadFiles(long applicant, string basePath, string fileName, CancellationToken cancellationToken);

@@ -6,15 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Npgsql" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Renci.SshNet.Async" />
     <PackageReference Include="SixLabors.ImageSharp" />
+    <PackageReference Include="SSH.NET" />
+     
   </ItemGroup>
 
   <ItemGroup>

@@ -32,7 +32,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<ReligionModel> ReligionModels => Set<ReligionModel>();
     public DbSet<RequirementModel> RequirementModels => Set<RequirementModel>();
     public DbSet<SchoolModel> SchoolModels => Set<SchoolModel>();
-    public DbSet<SMSModel> SmsModels => Set<SMSModel>();
+    public DbSet<SmsModel> SmsModels => Set<SmsModel>();
     public DbSet<SubjectModel> SubjectModels => Set<SubjectModel>();
     public DbSet<SHSProgrammes> ShsProgrammes => Set<SHSProgrammes>();
     public DbSet<CountryModel> CountryModels => Set<CountryModel>();

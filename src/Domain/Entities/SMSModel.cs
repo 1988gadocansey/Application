@@ -17,7 +17,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicantPortal.Domain.Entities;
 
-public record SMSModel
+public record SmsModel
 {
     [Key]
     public int Id { set; get; }
@@ -26,6 +26,6 @@ public record SMSModel
     public long Recipient { get; set; }
     public DateTime DateSent  => DateTime.UtcNow;
     public string? Status { get; set; }
-    public  ApplicantModel? ApplicantModel { set; get; }
+    public  int? Applicant { set; get; }
    // private ICollection<ApplicantModel>? ApplicantModel { get; set; }
 }

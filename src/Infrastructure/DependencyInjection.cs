@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
-
-namespace Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using  ApplicantPortal.Infrastructure.Mails;
+using ApplicantPortal.Infrastructure.SMS;
+namespace ApplicantPortal.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -52,6 +54,9 @@ public static class DependencyInjection
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<IApplicantRepository, ApplicantService>();
         services.AddTransient<IPhotoUploadService, PhotoUploadService>();
+        services.AddTransient<IEmailSender, EmailService>();
+        services.AddTransient<ISmsSender, SmsService>();
+        services.AddTransient<IDocumentUploadService, DocumentUploadService>();
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
         services.AddTransient<IApplicantRepository, ApplicantRepository>();
