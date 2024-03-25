@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using  ApplicantPortal.Infrastructure.Mails;
 using ApplicantPortal.Infrastructure.SMS;
-using SixLabors.ImageSharp;
 
 namespace ApplicantPortal.Infrastructure;
 
@@ -58,7 +57,9 @@ public static class DependencyInjection
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<IApplicantRepository, ApplicantService>();
         services.AddTransient<IPhotoUploadService, PhotoUploadService>();
-        services.AddTransient<IMailService, EmailService>();
+        services.AddTransient<IEmailSender, MailerService>();
+       // services.AddTransient<IMailService, EmailService>();
+     
         services.AddTransient<ISmsSender, SmsService>();
         services.AddTransient<IDocumentUploadService, DocumentUploadService>();
         services.AddAuthorization(options =>

@@ -1,4 +1,4 @@
-namespace ApplicantPortal.Infrastructure.Mails;
+namespace ApplicantPortal.Domain.Entities;
 
 public record HtmlMailData(string EmailToId, string EmailToName)
 {

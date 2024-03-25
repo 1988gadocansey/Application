@@ -1,19 +1,18 @@
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Domain.Entities;
-using OnlineApplicationSystem.Application.Common.Interfaces;
-
+ 
 
 namespace ApplicantPortal.Application.ProgrammeInformation.Commands;
 
 public class CreateProgrammeInfoCommandHandler(
     IApplicationDbContext context,
     IUser currentUserService,
-    IDateTime dateTime,
+    
     IIdentityService identityService,
     IApplicantRepository applicantRepository)
     : IRequestHandler<ProgrammeInfoRequest, int>
 {
-    private readonly IDateTime _dateTime = dateTime;
+    
     private readonly IApplicantRepository _applicantRepository = applicantRepository;
 
     public async Task<int> Handle(ProgrammeInfoRequest request, CancellationToken cancellationToken)

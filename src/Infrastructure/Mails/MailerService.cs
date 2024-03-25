@@ -1,19 +1,53 @@
-/*
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Domain.Entities;
 using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 
 namespace ApplicantPortal.Infrastructure.Mails;
 
-public class EmailService(MailSettings mailSettings) : IMailService
+public class MailSettings
 {
-    public async Task<bool> SendMail(MailData mailData)
+    public static string? Server;
+    public static int Port;
+    public static string? SenderName;
+    public static  string? SenderEmail;
+    public static  string? UserName;
+    public static string? Password;
+
+    
+}
+public class MailerService(
+ 
+    IApplicantRepository applicantRepository,
+    IConfiguration configuration)
+    : IEmailSender
+{
+    private readonly IApplicantRepository _applicantRepository = applicantRepository;
+    private readonly IConfiguration _configuration = configuration;
+
+    public async Task SendEmail(string? to, string? subject, string? body, string? From)
+    {
+        var email = new MimeMessage();
+        email.Sender = new MailboxAddress("TTU Admissions", "gadocansey@gmail.com");
+        email.To.Add(MailboxAddress.Parse(to));
+        email.Subject = subject;
+        var builder = new BodyBuilder { HtmlBody = body };
+        using var smtp = new SmtpClient();
+        email.Body = builder.ToMessageBody();
+        await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+        await smtp.AuthenticateAsync("gadocansey@gmail.com", "jzpgrzmrnwkbknkd");
+        await smtp.SendAsync(email);
+        await smtp.DisconnectAsync(true);
+    }
+
+    public async Task<bool> SendAsync(MailData mailData, CancellationToken ct)
     {
         try
         {
             using MimeMessage emailMessage = new MimeMessage();
-            MailboxAddress emailFrom = new MailboxAddress(mailSettings.SenderName, mailSettings.SenderEmail);
+            MailboxAddress emailFrom = new MailboxAddress(MailSettings.SenderName, MailSettings.SenderEmail);
             emailMessage.From.Add(emailFrom);
             MailboxAddress emailTo = new MailboxAddress(mailData.EmailToName, mailData.EmailToId);
             emailMessage.To.Add(emailTo);
@@ -30,27 +64,27 @@ public class EmailService(MailSettings mailSettings) : IMailService
             emailMessage.Body = emailBodyBuilder.ToMessageBody();
             //this is the SmtpClient from the Mailkit.Net.Smtp namespace, not the System.Net.Mail one
             using SmtpClient mailClient = new SmtpClient();
-            await mailClient.ConnectAsync(mailSettings.Server, mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
-            await mailClient.AuthenticateAsync(mailSettings.UserName, mailSettings.Password);
+          
+            await mailClient.ConnectAsync(MailSettings.Server, MailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+            await mailClient.AuthenticateAsync(MailSettings.UserName, MailSettings.Password);
             await mailClient.SendAsync(emailMessage);
             await mailClient.DisconnectAsync(true);
 
-            return true;
+
+            return await Task.FromResult(true);
         }
         catch (Exception ex)
         {
-             Console.WriteLine(ex.Message);
-            return false;
+            Console.WriteLine(ex.Message);
+            return await Task.FromResult(true);
         }
     }
-    
-
-    public async Task<bool> SendHtmlMail(HtmlMailData htmlMailData)
+     public async Task<bool> SendHtmlMail(HtmlMailData htmlMailData)
     {
         try
         {
             using MimeMessage emailMessage = new MimeMessage();
-            MailboxAddress emailFrom = new MailboxAddress(mailSettings.SenderName, mailSettings.SenderEmail);
+            MailboxAddress emailFrom = new MailboxAddress(MailSettings.SenderName, MailSettings.SenderEmail);
             emailMessage.From.Add(emailFrom);
 
             MailboxAddress emailTo = new MailboxAddress(htmlMailData.EmailToName, htmlMailData.EmailToId);
@@ -70,8 +104,8 @@ public class EmailService(MailSettings mailSettings) : IMailService
             emailMessage.Body = emailBodyBuilder.ToMessageBody();
 
             using SmtpClient mailClient = new SmtpClient();
-            mailClient.Connect(mailSettings.Server, mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
-            mailClient.Authenticate(mailSettings.SenderEmail, mailSettings.Password);
+            mailClient.Connect(MailSettings.Server, MailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+            mailClient.Authenticate(MailSettings.SenderEmail, MailSettings.Password);
             mailClient.Send(emailMessage);
             mailClient.Disconnect(true);
 
@@ -89,7 +123,7 @@ public class EmailService(MailSettings mailSettings) : IMailService
         {
             using (MimeMessage emailMessage = new MimeMessage())
             {
-                MailboxAddress emailFrom = new MailboxAddress(mailSettings.SenderName, mailSettings.SenderEmail);
+                MailboxAddress emailFrom = new MailboxAddress(MailSettings.SenderName, MailSettings.SenderEmail);
                 emailMessage.From.Add(emailFrom);
                 MailboxAddress emailTo = new MailboxAddress(mailData.EmailToName, mailData.EmailToId);
                 emailMessage.To.Add(emailTo);
@@ -105,7 +139,7 @@ public class EmailService(MailSettings mailSettings) : IMailService
 
                 if (mailData.EmailAttachments != null)
                 {
-                    foreach (var attachmentFile in mailData.EmailAttachments)
+                    foreach (var attachmentFile in mailData.EmailAttachments!)
                     {
                         if (attachmentFile.Length == 0)
                         {
@@ -124,10 +158,10 @@ public class EmailService(MailSettings mailSettings) : IMailService
                 //this is the SmtpClient from the Mailkit.Net.Smtp namespace, not the System.Net.Mail one
                 using (SmtpClient mailClient = new SmtpClient())
                 {
-                    await mailClient.ConnectAsync(mailSettings.Server, mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
-                    mailClient.Authenticate(mailSettings.UserName, mailSettings.Password);
-                    mailClient.Send(emailMessage);
-                    mailClient.Disconnect(true);
+                    await mailClient.ConnectAsync(MailSettings.Server, MailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+                    await mailClient.AuthenticateAsync(MailSettings.UserName, MailSettings.Password);
+                    await mailClient.SendAsync(emailMessage);
+                    await mailClient.DisconnectAsync(true);
                 }
             }
 
@@ -140,6 +174,3 @@ public class EmailService(MailSettings mailSettings) : IMailService
         }
     }
 }
-*/
-
- 

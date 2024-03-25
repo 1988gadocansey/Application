@@ -17,6 +17,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Renci.SshNet.Async" />
     <PackageReference Include="SixLabors.ImageSharp" />
+     
+    
     <PackageReference Include="SSH.NET" />
      
   </ItemGroup>

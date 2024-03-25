@@ -41,7 +41,6 @@ public class FinalizedCommandHandler(
     IApplicantRepository applicantRepository,
     IIdentityService identityService,
     IEmailSender emailSender,
-  
     ISmsSender smsSender)
     : IRequestHandler<FinalizedRequest, int>
 {
