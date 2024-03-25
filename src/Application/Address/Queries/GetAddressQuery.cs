@@ -2,7 +2,7 @@ using ApplicantPortal.Application.Common.Dtos;
 using ApplicantPortal.Application.Common.Interfaces;
 
 namespace ApplicantPortal.Application.Address.Queries;
-public abstract record GetAddressQuery : IRequest<IEnumerable<AddressDto>>;
+public  record GetAddressQuery : IRequest<IEnumerable<AddressDto>>;
 
 public class GetAddressQueryHandler(IUser currentUserService, IApplicantRepository applicantRepository): IRequestHandler<GetAddressQuery, IEnumerable<AddressDto>>
 {

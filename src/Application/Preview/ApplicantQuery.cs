@@ -3,7 +3,7 @@ using ApplicantPortal.Application.Common.ViewModels;
 
 namespace ApplicantPortal.Application.Preview;
 
-public abstract record GetApplicantQuery : IRequest<ApplicantVm>;
+public record GetApplicantQuery : IRequest<ApplicantVm>;
 
 public class GetApplicantQueryHandler(
     IApplicationDbContext context,

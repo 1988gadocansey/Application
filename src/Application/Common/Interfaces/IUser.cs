@@ -1,8 +1,8 @@
 ﻿namespace ApplicantPortal.Application.Common.Interfaces;
-public enum ApplicationType
+/*public enum ApplicationType
 {
     Certificate,Bridging,Diploma, Hnd, Topup, Degree, Masters, PhD
-}
+}*/
 public interface IUser
 {
     string? Id { get; }

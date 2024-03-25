@@ -1,4 +1,5 @@
 ﻿using ApplicantPortal.Application.Common.Interfaces;
+using ApplicantPortal.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 namespace ApplicantPortal.Infrastructure.Identity;
  

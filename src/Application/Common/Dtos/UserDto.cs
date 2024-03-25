@@ -1,6 +1,7 @@
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Application.Common.Mappings;
 using ApplicantPortal.Domain.Entities;
+using ApplicantPortal.Domain.Enums;
 
 namespace ApplicantPortal.Application.Common.Dtos;
 

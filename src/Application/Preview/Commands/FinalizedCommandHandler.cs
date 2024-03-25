@@ -4,12 +4,44 @@ using OnlineApplicationSystem.Application.Preview.Commands;
 
 namespace ApplicantPortal.Application.Preview.Commands;
 
+internal class Email(
+    List<string> to,
+    string subject,
+    string? body = null,
+    string? from = null,
+    string? displayName = null,
+    string? replyTo = null,
+    string? replyToName = null,
+    List<string>? bcc = null,
+    List<string>? cc = null)
+{
+    
+    public List<string> To { get; } = to;
+    public List<string> Bcc { get; } = bcc ?? [];
+    public List<string> Cc { get; } = cc ?? [];
+
+    // Sender
+    public string? From { get; } = from;
+    public string? DisplayName { get; } = displayName;
+    public string? ReplyTo { get; } = replyTo;
+    public string? ReplyToName { get; } = replyToName;
+
+    // Content
+    public string Subject { get; } = subject;
+    public string? Body { get; } = body;
+
+
+    // Receiver
+    // Sender
+    // Content
+}
 public class FinalizedCommandHandler(
     IApplicationDbContext context,
     IUser currentUserService,
     IApplicantRepository applicantRepository,
     IIdentityService identityService,
     IEmailSender emailSender,
+  
     ISmsSender smsSender)
     : IRequestHandler<FinalizedRequest, int>
 {
@@ -75,7 +107,7 @@ public class FinalizedCommandHandler(
         context.ProgressModels.Update(applicantIssues);
         await context.SaveChangesAsync(cancellationToken);
         await identityService.Finalized(currentUserService.Id!);
-        var mailData = new MailData(
+        var mailData = new Email(
             [applicant.Email!.Value!],
             "TTU Admissions Forms",
             body,

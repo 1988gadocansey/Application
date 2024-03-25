@@ -1,6 +1,7 @@
 ﻿using ApplicantPortal.Application.Common.Dtos;
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Application.Common.Models;
+using ApplicantPortal.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
