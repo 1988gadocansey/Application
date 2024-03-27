@@ -13,7 +13,7 @@ public class Dashboard: EndpointGroupBase
             .MapGet(Index);
 
     }
-    private async Task<UserDto> Index(ISender sender) => await sender.Send(new GetUserQuery());
+    public async Task<UserDto> Index(ISender sender) => await sender.Send(new GetUserQuery());
     
 
 }

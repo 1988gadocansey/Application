@@ -1,3 +1,4 @@
+
 using ApplicantPortal.Application.Address.Commands;
 using ApplicantPortal.Application.Address.Queries;
 using ApplicantPortal.Application.Common.Dtos;
@@ -10,10 +11,11 @@ public class Address : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(Index)
-            .MapGet(Create);
+           .MapGet(Index,"Index")
+           .MapPost(Create,"Create");
     }
-    private async Task<IEnumerable<AddressDto>> Index(ISender sender) => await sender.Send(new GetAddressQuery());
+   public async Task<IEnumerable<AddressDto>> Index(ISender sender) => await sender.Send(new GetAddressQuery());
 
-    private async Task<Guid> Create(ISender sender, CreateAddressRequest command) { return await sender.Send(command); }
+   public async Task<Guid> Create(ISender sender, CreateAddressRequest command) { return await sender.Send(command); }
 }
+

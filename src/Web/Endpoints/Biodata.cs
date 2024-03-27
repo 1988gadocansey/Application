@@ -1,3 +1,4 @@
+
 using ApplicantPortal.Application.Address.Commands;
 using ApplicantPortal.Application.Address.Queries;
 using ApplicantPortal.Application.Biodata.Commands.CreateBiodata;
@@ -11,8 +12,9 @@ public class Biodata : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(Create);
+            .MapPost(Create,"Create");
     }
  
-    private async Task<int> Create(ISender sender, CreateBiodataRequest command) { return await sender.Send(command); }
+    public async Task<int> Create(ISender sender, CreateBiodataRequest command) { return await sender.Send(command); }
 }
+

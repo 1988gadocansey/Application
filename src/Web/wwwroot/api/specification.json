@@ -6,12 +6,204 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Address/Index": {
+      "get": {
+        "tags": [
+          "Address"
+        ],
+        "operationId": "IndexAll",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Address/Save": {
+      "post": {
+        "tags": [
+          "Address"
+        ],
+        "operationId": "Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAddressRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "guid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Applicant/Index": {
+      "get": {
+        "tags": [
+          "Applicant"
+        ],
+        "operationId": "Index",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicantVm"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Applicant/Forms/Change": {
+      "get": {
+        "tags": [
+          "Applicant"
+        ],
+        "operationId": "GetForms",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Applicant"
+        ],
+        "operationId": "SaveFormChanges",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFormUpdateRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Biodata/Create": {
+      "post": {
+        "tags": [
+          "Biodata"
+        ],
+        "operationId": "Create2",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBiodataRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Dashboard": {
       "get": {
         "tags": [
           "Dashboard"
         ],
-        "operationId": "Index",
+        "operationId": "Index2",
         "responses": {
           "200": {
             "description": "",
@@ -820,6 +1012,2472 @@
   },
   "components": {
     "schemas": {
+      "AddressDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "gprs": {
+            "type": "string",
+            "nullable": true
+          },
+          "box": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicant": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantModel"
+              }
+            ]
+          }
+        }
+      },
+      "ApplicantModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "applicationNumber": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicationNumber"
+                  }
+                ]
+              },
+              "title": {
+                "$ref": "#/components/schemas/Title"
+              },
+              "applicantName": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantName"
+                  }
+                ]
+              },
+              "previousName": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantName"
+                  }
+                ]
+              },
+              "dob": {
+                "type": "string",
+                "format": "date"
+              },
+              "gender": {
+                "$ref": "#/components/schemas/Gender"
+              },
+              "age": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "maritalStatus": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MaritalStatus"
+                  }
+                ]
+              },
+              "noOfChildren": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "phone": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/PhoneNumber"
+                  }
+                ]
+              },
+              "altPhone": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/PhoneNumber"
+                  }
+                ]
+              },
+              "email": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EmailAddress"
+                  }
+                ]
+              },
+              "postGprs": {
+                "type": "string",
+                "nullable": true
+              },
+              "emergencyContact": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/PhoneNumber"
+                  }
+                ]
+              },
+              "hometown": {
+                "type": "string",
+                "nullable": true
+              },
+              "districtId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "district": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/DistrictModel"
+                  }
+                ]
+              },
+              "hall": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/HallModel"
+                  }
+                ]
+              },
+              "idCard": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IdCard"
+                  }
+                ]
+              },
+              "regionId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "region": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/RegionModel"
+                  }
+                ]
+              },
+              "nationalityId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "nationality": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CountryModel"
+                  }
+                ]
+              },
+              "residentialStatus": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "guardianName": {
+                "type": "string",
+                "nullable": true
+              },
+              "guardianPhone": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/PhoneNumber"
+                  }
+                ]
+              },
+              "guardianOccupation": {
+                "type": "string",
+                "nullable": true
+              },
+              "guardianRelationship": {
+                "type": "string",
+                "nullable": true
+              },
+              "disability": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "disabilityType": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Disability"
+                  }
+                ]
+              },
+              "sourceOfFinance": {
+                "type": "string",
+                "nullable": true
+              },
+              "religionId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "religion": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ReligionModel"
+                  }
+                ]
+              },
+              "denomination": {
+                "type": "string",
+                "nullable": true
+              },
+              "referrals": {
+                "type": "string",
+                "nullable": true
+              },
+              "entryMode": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Session"
+                  }
+                ]
+              },
+              "firstQualification": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EntryQualification"
+                  }
+                ]
+              },
+              "secondQualification": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EntryQualification"
+                  }
+                ]
+              },
+              "programmeStudied": {
+                "type": "string",
+                "nullable": true
+              },
+              "formerSchool": {
+                "type": "string",
+                "nullable": true
+              },
+              "formerSchoolNewId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "formerSchoolNew": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/FormerSchoolModel"
+                  }
+                ]
+              },
+              "programmeAdmittedId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "lastYearInSchool": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "awaiting": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "indexNo": {
+                "type": "string",
+                "nullable": true
+              },
+              "grade": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "yearOfAdmission": {
+                "type": "string",
+                "nullable": true
+              },
+              "preferredHall": {
+                "type": "string",
+                "nullable": true
+              },
+              "results": {
+                "type": "string",
+                "nullable": true
+              },
+              "externalHostel": {
+                "type": "string",
+                "nullable": true
+              },
+              "eligible": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "admitted": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "admittedBy": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "dateAdmitted": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "admissionType": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AdmissionType"
+                  }
+                ]
+              },
+              "levelAdmitted": {
+                "type": "string",
+                "nullable": true
+              },
+              "sectionAdmitted": {
+                "type": "string",
+                "nullable": true
+              },
+              "hallAdmitted": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "roomNo": {
+                "type": "string",
+                "nullable": true
+              },
+              "status": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicationStatus"
+                  }
+                ]
+              },
+              "receivedSms": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "letterPrinted": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "firstChoiceId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "secondChoiceId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "thirdChoiceId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "feePaying": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "reportedInSchool": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "feesPaid": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Money"
+                  }
+                ]
+              },
+              "hallFeesPaid": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Money"
+                  }
+                ]
+              },
+              "reported": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "sponsorShip": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "sponsorShipCompany": {
+                "type": "string",
+                "nullable": true
+              },
+              "sponsorShipLocation": {
+                "type": "string",
+                "nullable": true
+              },
+              "sponsorShipCompanyContact": {
+                "type": "string",
+                "nullable": true
+              },
+              "applicationUserId": {
+                "type": "string",
+                "nullable": true
+              },
+              "previousIndexNumber": {
+                "type": "string",
+                "nullable": true
+              },
+              "getFullName": {
+                "type": "string"
+              },
+              "programmes": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/ProgrammeModel"
+                }
+              },
+              "resultUploads": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/ResultUploadModel"
+                }
+              },
+              "workingExperiences": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WorkingExperienceModel"
+                    }
+                  ]
+                }
+              },
+              "academicExperiences": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AcademicExperienceModel"
+                    }
+                  ]
+                }
+              },
+              "documents": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/DocumentUploadModel"
+                    }
+                  ]
+                }
+              },
+              "referees": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/RefereeModel"
+                    }
+                  ]
+                }
+              },
+              "addresses": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AddressModel"
+                    }
+                  ]
+                }
+              },
+              "languages": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/LanguageModel"
+                    }
+                  ]
+                }
+              },
+              "sms": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/SmsModel"
+                }
+              },
+              "applicantIssues": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/ApplicantIssueModel"
+                }
+              },
+              "researchModels": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/ResearchModel"
+                }
+              },
+              "researchPublications": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/ResearchPublicationModel"
+                }
+              },
+              "universityAttended": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/UniversityAttendedModel"
+                }
+              },
+              "shsAttended": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/SHSAttendedModel"
+                }
+              },
+              "disabilities": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/DisabilitiesModel"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ApplicationNumber": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueObject"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "applicantNumber": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "ValueObject": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
+      "Title": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Mr",
+          "Miss",
+          "Mrs",
+          "Rev",
+          "Dr",
+          "PhD",
+          "Imam",
+          "Prof"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "ApplicantName": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueObject"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastName": {
+                "type": "string",
+                "nullable": true
+              },
+              "othernames": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "Gender": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Male",
+          "Female"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "MaritalStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Married",
+          "Divorced",
+          "Single",
+          "Seperated"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "PhoneNumber": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueObject"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "areaCode": {
+                "type": "string",
+                "nullable": true
+              },
+              "number": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "EmailAddress": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueObject"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DistrictModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "HallModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankAccount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fees": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "IdCard": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueObject"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "nationalIDType": {
+                "type": "string"
+              },
+              "nationalIDNo": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "RegionModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CountryModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Disability": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Blind",
+          "Deaf_One_Ear",
+          "Deaf_Dump",
+          "Amputee",
+          "Normal",
+          "Crippled",
+          "Blind_One_Eye",
+          "Deaf"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "ReligionModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Session": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Regular",
+          "Evening",
+          "Sandwich",
+          "Session"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "EntryQualification": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "WASSCE",
+          "SSCE",
+          "NVTI",
+          "DEGREE",
+          "MASTERS",
+          "HND",
+          "DIPLOMA",
+          "BECE",
+          "PhD"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "FormerSchoolModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "AdmissionType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Mature",
+          "Regular",
+          "Access",
+          "Conditional"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "ApplicationStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Admitted",
+          "Applicant",
+          "Reported",
+          "FeePaid"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "Money": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueObject"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "currency": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number",
+                "format": "decimal"
+              }
+            }
+          }
+        ]
+      },
+      "ProgrammeModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "levelAdmitted": {
+            "type": "string",
+            "nullable": true
+          },
+          "running": {
+            "type": "boolean"
+          },
+          "showOnPortal": {
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "department": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DepartmentModel"
+              }
+            ]
+          },
+          "affiliation": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicant": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ApplicantModel"
+            }
+          }
+        }
+      },
+      "DepartmentModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "faculty": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FacultyModel"
+              }
+            ]
+          }
+        }
+      },
+      "FacultyModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ResultUploadModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "subjectId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "examType": {
+                "type": "string",
+                "nullable": true
+              },
+              "gradeId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "gradeOld": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "gradeValueOld": {
+                "type": "string",
+                "nullable": true
+              },
+              "indexNo": {
+                "type": "string",
+                "nullable": true
+              },
+              "sitting": {
+                "type": "string",
+                "nullable": true
+              },
+              "month": {
+                "type": "string",
+                "nullable": true
+              },
+              "form": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "center": {
+                "type": "string",
+                "nullable": true
+              },
+              "year": {
+                "type": "string",
+                "nullable": true
+              },
+              "oldSubject": {
+                "type": "string",
+                "nullable": true
+              },
+              "institutionName": {
+                "type": "string",
+                "nullable": true
+              },
+              "applicantModelId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "applicantModel": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantModel"
+                  }
+                ]
+              },
+              "subject": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SubjectModel"
+                  }
+                ]
+              },
+              "grade": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/GradeModel"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "SubjectModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "GradeModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "exam": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "BaseEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "domainEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseEvent"
+            }
+          }
+        }
+      },
+      "BaseEvent": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
+      "WorkingExperienceModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "companyName": {
+                "type": "string",
+                "nullable": true
+              },
+              "companyPhone": {
+                "type": "string",
+                "nullable": true
+              },
+              "companyAddress": {
+                "type": "string",
+                "nullable": true
+              },
+              "companyPosition": {
+                "type": "string",
+                "nullable": true
+              },
+              "companyFrom": {
+                "type": "string",
+                "nullable": true
+              },
+              "companyTo": {
+                "type": "string",
+                "nullable": true
+              },
+              "applicantModel": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantModel"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "AcademicExperienceModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "institutionName": {
+                "type": "string",
+                "nullable": true
+              },
+              "institutionAddress": {
+                "type": "string",
+                "nullable": true
+              },
+              "programmeStudied": {
+                "type": "string",
+                "nullable": true
+              },
+              "from": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "certificate": {
+                "type": "string",
+                "nullable": true
+              },
+              "applicantModelId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "applicantModel": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantModel"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "BaseAuditableEntity": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastModifiedBy": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DocumentUploadModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "applicant": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantModel"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "type": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "RefereeModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "institution": {
+                "type": "string",
+                "nullable": true
+              },
+              "email": {
+                "type": "string",
+                "nullable": true
+              },
+              "position": {
+                "type": "string",
+                "nullable": true
+              },
+              "applicantModel": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantModel"
+                  }
+                ]
+              },
+              "refereeStatus": {
+                "$ref": "#/components/schemas/RefereeStatus"
+              }
+            }
+          }
+        ]
+      },
+      "RefereeStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Approved",
+          "Pending",
+          "Declined"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "AddressModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "gprs": {
+            "type": "string",
+            "nullable": true
+          },
+          "box": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicant": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantModel"
+              }
+            ]
+          }
+        }
+      },
+      "LanguageModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicantModelID": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SmsModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "sentBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "recipient": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dateSent": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicant": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "ApplicantIssueModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "applicantId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "applicant": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplicantModel"
+                  }
+                ]
+              },
+              "issue": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "ResearchModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "month": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaOfResearchIfAdmitted": {
+            "type": "string",
+            "nullable": true
+          },
+          "actualAreaOfResearch": {
+            "type": "string",
+            "nullable": true
+          },
+          "futureResearchInterest": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicant": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantModel"
+              }
+            ]
+          }
+        }
+      },
+      "ResearchPublicationModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "applicant": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantModel"
+              }
+            ]
+          },
+          "publication": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UniversityAttendedModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CountryModel"
+              }
+            ]
+          },
+          "startYear": {
+            "type": "string",
+            "nullable": true
+          },
+          "endYear": {
+            "type": "string",
+            "nullable": true
+          },
+          "studentNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "degreeObtained": {
+            "type": "string",
+            "nullable": true
+          },
+          "degreeClassification": {
+            "type": "string",
+            "nullable": true
+          },
+          "cgpa": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "applicant": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantModel"
+              }
+            ]
+          }
+        }
+      },
+      "SHSAttendedModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attendedTTU": {
+            "type": "boolean"
+          },
+          "applicant": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantModel"
+              }
+            ]
+          },
+          "name": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FormerSchoolModel"
+              }
+            ]
+          },
+          "location": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RegionModel"
+              }
+            ]
+          },
+          "startYear": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "endYear": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "programmeStudied": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "DisabilitiesModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CreateAddressRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "gprs": {
+            "type": "string",
+            "nullable": true
+          },
+          "box": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicant": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ApplicantVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "applicationNumber": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationNumber"
+              }
+            ]
+          },
+          "title": {
+            "$ref": "#/components/schemas/Title"
+          },
+          "applicantName": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantName"
+              }
+            ]
+          },
+          "previousName": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApplicantName"
+              }
+            ]
+          },
+          "dob": {
+            "type": "string",
+            "format": "date"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MaritalStatus"
+              }
+            ]
+          },
+          "noOfChildren": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "phone": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumber"
+              }
+            ]
+          },
+          "altPhone": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumber"
+              }
+            ]
+          },
+          "email": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/EmailAddress"
+              }
+            ]
+          },
+          "postGprs": {
+            "type": "string",
+            "nullable": true
+          },
+          "emergencyContact": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumber"
+              }
+            ]
+          },
+          "hometown": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "district": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DistrictModel"
+              }
+            ]
+          },
+          "hall": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/HallModel"
+              }
+            ]
+          },
+          "idcard": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/IdCard"
+              }
+            ]
+          },
+          "regionId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "region": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RegionModel"
+              }
+            ]
+          },
+          "nationalityId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nationality": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CountryModel"
+              }
+            ]
+          },
+          "residentialStatus": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "guardianName": {
+            "type": "string",
+            "nullable": true
+          },
+          "guardianPhone": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumber"
+              }
+            ]
+          },
+          "guardianOccupation": {
+            "type": "string",
+            "nullable": true
+          },
+          "guardianRelationship": {
+            "type": "string",
+            "nullable": true
+          },
+          "disability": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "disabilityType": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Disability"
+              }
+            ]
+          },
+          "sourceOfFinance": {
+            "type": "string",
+            "nullable": true
+          },
+          "religionId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "religion": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ReligionModel"
+              }
+            ]
+          },
+          "denomination": {
+            "type": "string",
+            "nullable": true
+          },
+          "referrals": {
+            "type": "string",
+            "nullable": true
+          },
+          "entryMode": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstQualification": {
+            "type": "string",
+            "nullable": true
+          },
+          "secondQualification": {
+            "type": "string",
+            "nullable": true
+          },
+          "programmeStudied": {
+            "type": "string",
+            "nullable": true
+          },
+          "formerSchool": {
+            "type": "string",
+            "nullable": true
+          },
+          "formerSchoolNewId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "programmeAdmittedId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "lastYearInSchool": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "awaiting": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "indexNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "grade": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "preferedHall": {
+            "type": "string",
+            "nullable": true
+          },
+          "elligible": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "admitted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "admittedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "admissionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "leveladmitted": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstChoiceId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "secondChoiceId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "thirdChoiceId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sponsorShip": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sponsorShipCompany": {
+            "type": "string",
+            "nullable": true
+          },
+          "sponsorShipLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "sponsorShipCompanyContact": {
+            "type": "string",
+            "nullable": true
+          },
+          "getFullName": {
+            "type": "string"
+          },
+          "programmes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ProgrammeModel"
+            }
+          },
+          "resultUploads": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ResultUploadModel"
+            }
+          },
+          "workingExperiences": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/WorkingExperienceModel"
+            }
+          },
+          "academicExperiences": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/AcademicExperienceModel"
+            }
+          },
+          "documents": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/DocumentUploadModel"
+            }
+          },
+          "referees": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/RefereeModel"
+            }
+          },
+          "addresses": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/AddressModel"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/LanguageModel"
+            }
+          },
+          "sms": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/SmsModel"
+            }
+          },
+          "researchModels": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ResearchModel"
+            }
+          },
+          "researchPublications": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ResearchPublicationModel"
+            }
+          },
+          "universityAttended": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/UniversityAttendedModel"
+            }
+          },
+          "shsAttended": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/SHSAttendedModel"
+            }
+          },
+          "disabilities": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/DisabilitiesModel"
+            }
+          }
+        }
+      },
+      "ApplicationType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Certificate",
+          "Bridging",
+          "Diploma",
+          "Hnd",
+          "Topup",
+          "Degree",
+          "Masters",
+          "PhD"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "CreateFormUpdateRequest": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "formType": {
+            "$ref": "#/components/schemas/ApplicationType"
+          }
+        }
+      },
+      "CreateBiodataRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "applicationNumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "otherName": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousName": {
+            "type": "string",
+            "nullable": true
+          },
+          "noOfChildren": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "month": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "string",
+            "nullable": true
+          },
+          "day": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "$ref": "#/components/schemas/Title"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MaritalStatus"
+              }
+            ]
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "altPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "postGPRS": {
+            "type": "string",
+            "nullable": true
+          },
+          "emergencyContact": {
+            "type": "string",
+            "nullable": true
+          },
+          "hometown": {
+            "type": "string",
+            "nullable": true
+          },
+          "district": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nationalityId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "residentialStatus": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "guardianName": {
+            "type": "string",
+            "nullable": true
+          },
+          "guardianPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "guardianOccupation": {
+            "type": "string",
+            "nullable": true
+          },
+          "guardianRelationship": {
+            "type": "string",
+            "nullable": true
+          },
+          "disability": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "disabilityType": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Disability"
+              }
+            ]
+          },
+          "sourceOfFinance": {
+            "type": "string",
+            "nullable": true
+          },
+          "religionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "denomination": {
+            "type": "string",
+            "nullable": true
+          },
+          "idCard": {
+            "$ref": "#/components/schemas/IdCards"
+          },
+          "referrals": {
+            "type": "string",
+            "nullable": true
+          },
+          "admitted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "levelAdmitted": {
+            "type": "string",
+            "nullable": true
+          },
+          "grade": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "admittedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sponsorship": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sponsorshipCompany": {
+            "type": "string",
+            "nullable": true
+          },
+          "sponsorshipLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "sponsorshipCompanyContact": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalIDNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousIndexNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "IdCards": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "GhanaCard",
+          "VotersCard",
+          "NHIS",
+          "PassPort",
+          "DriversLicense",
+          "Other",
+          "BirthCertificate"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
       "UserDto": {
         "type": "object",
         "additionalProperties": false,
@@ -907,30 +3565,6 @@
             "nullable": true
           }
         }
-      },
-      "ApplicationType": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Certificate",
-          "Bridging",
-          "Diploma",
-          "Hnd",
-          "Topup",
-          "Degree",
-          "Masters",
-          "PhD"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7
-        ]
       },
       "UploadPictureRequest": {
         "type": "object",

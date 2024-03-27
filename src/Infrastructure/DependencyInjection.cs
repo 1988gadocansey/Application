@@ -51,7 +51,7 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
         
-        services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+      //  services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
        
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();

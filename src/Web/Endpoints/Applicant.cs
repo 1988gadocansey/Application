@@ -12,11 +12,12 @@ public class Applicant : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(Index)
-            .MapGet(GetForms)
-            .MapPost(SaveFormChanges);
+            .MapGet(Index,"Index")
+           .MapGet(GetForms,"Forms/Change")
+            .MapPost(SaveFormChanges,"Forms/Change");
     }
-    private async Task<ApplicantVm> Index(ISender sender) => await sender.Send(new GetApplicantQuery());
-    private async  Task<IEnumerable<ApplicationType>> GetForms(ISender sender) => await sender.Send(new GetFormsQuery());
-    private async Task<bool> SaveFormChanges(ISender sender, CreateFormUpdateRequest command) { return await sender.Send(command); }
+
+    public async Task<ApplicantVm> Index(ISender sender) => await sender.Send(new GetApplicantQuery());
+    public async Task<IEnumerable<ApplicationType>> GetForms(ISender sender) => await sender.Send(new GetFormsQuery());
+    public async Task<bool> SaveFormChanges(ISender sender, CreateFormUpdateRequest command) { return await sender.Send(command); }
 }
