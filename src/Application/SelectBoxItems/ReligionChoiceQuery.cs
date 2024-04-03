@@ -4,7 +4,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 namespace ApplicantPortal.Application.SelectBoxItems;
 
  
-public abstract record GetReligionQuery : IRequest<IEnumerable<ReligionDto>>;
+public   record GetReligionQuery : IRequest<IEnumerable<ReligionDto>>;
 
 public class GetReligionQueryHandler(IApplicationDbContext context, IApplicantRepository applicantRepository)
     : IRequestHandler<GetReligionQuery, IEnumerable<ReligionDto>>

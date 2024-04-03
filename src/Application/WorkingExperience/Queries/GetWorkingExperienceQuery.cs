@@ -5,7 +5,7 @@ using ApplicantPortal.Application.Common.Models;
 using ApplicantPortal.Domain.Entities;
 
 namespace ApplicantPortal.Application.WorkingExperience.Queries;
-public abstract record GetWorkingExperienceQuery : IRequest<PaginatedList<WorkingExperienceDto>>
+public  record GetWorkingExperienceQuery : IRequest<PaginatedList<WorkingExperienceDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

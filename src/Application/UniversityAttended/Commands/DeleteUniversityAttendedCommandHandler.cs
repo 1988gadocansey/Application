@@ -1,7 +1,7 @@
 using ApplicantPortal.Application.Common.Interfaces;
 
 namespace ApplicantPortal.Application.UniversityAttended.Commands;
-public abstract record DeleteUniversityAttendedRequest(int Id) : IRequest;
+public   record DeleteUniversityAttendedRequest(int Id) : IRequest;
 
 public class DeleteUniversityAttendedCommandHandler(IApplicationDbContext context)
     : IRequestHandler<DeleteUniversityAttendedRequest>

@@ -3,7 +3,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 
 namespace ApplicantPortal.Application.SelectBoxItems
 {
-    public abstract record GetProgrammeQuery : IRequest<IEnumerable<ProgrammeDto>>;
+    public   record GetProgrammeQuery : IRequest<IEnumerable<ProgrammeDto>>;
 
     public class GetProgrammeQueryHandler : IRequestHandler<GetProgrammeQuery, IEnumerable<ProgrammeDto>>
     {

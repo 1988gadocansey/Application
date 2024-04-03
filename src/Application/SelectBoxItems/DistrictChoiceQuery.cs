@@ -4,7 +4,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 namespace ApplicantPortal.Application.SelectBoxItems;
 
  
-public abstract record GetDistrictQuery : IRequest<IEnumerable<DistrictDto>>;
+public   record GetDistrictQuery : IRequest<IEnumerable<DistrictDto>>;
 
 public class GetDistrictQueryHandler(IApplicationDbContext context, IApplicantRepository applicantRepository)
     : IRequestHandler<GetDistrictQuery, IEnumerable<DistrictDto>>

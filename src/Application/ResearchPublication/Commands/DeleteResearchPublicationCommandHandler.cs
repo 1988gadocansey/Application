@@ -3,7 +3,7 @@ using ApplicantPortal.Domain.Entities;
 
 namespace ApplicantPortal.Application.ResearchPublication.Commands;
 
-public abstract record DeleteResearchPublicationRequest(int Id) : IRequest;
+public   record DeleteResearchPublicationRequest(int Id) : IRequest;
 
 public class DeleteResearchPublicationCommand(IApplicationDbContext context)
     : IRequestHandler<DeleteResearchPublicationRequest>

@@ -4,7 +4,7 @@ using ApplicantPortal.Application.Common.Mappings;
 using ApplicantPortal.Application.Common.Models;
 
 namespace ApplicantPortal.Application.PreviousSHSAttended.Queries;
-public abstract record GetSHSAttendedQuery : IRequest<PaginatedList<SHSAttendedDto>>
+public   record GetSHSAttendedQuery : IRequest<PaginatedList<SHSAttendedDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

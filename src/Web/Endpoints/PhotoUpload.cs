@@ -37,7 +37,6 @@ public class PhotoUpload : EndpointGroupBase
                 return await sender.Send(command);
             }
         }
-        
         return await sender.Send(command);
     }
 }

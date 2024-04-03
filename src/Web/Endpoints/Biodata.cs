@@ -12,9 +12,9 @@ public class Biodata : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(Create,"Create");
+            .MapPost(CreateBiodata,"Create");
     }
  
-    public async Task<int> Create(ISender sender, CreateBiodataRequest command) { return await sender.Send(command); }
+    public async Task<int> CreateBiodata(ISender sender, CreateBiodataRequest command) { return await sender.Send(command); }
 }
 

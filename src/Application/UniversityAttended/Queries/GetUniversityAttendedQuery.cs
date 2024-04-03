@@ -5,7 +5,7 @@ using ApplicantPortal.Application.Common.Models;
 
 namespace ApplicantPortal.Application.UniversityAttended.Queries;
 
-public abstract record GetUniversityAttendedQuery : IRequest<PaginatedList<UniversityAttendedDto>>
+public   record GetUniversityAttendedQuery : IRequest<PaginatedList<UniversityAttendedDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

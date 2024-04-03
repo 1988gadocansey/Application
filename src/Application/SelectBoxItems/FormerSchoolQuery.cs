@@ -4,7 +4,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 namespace ApplicantPortal.Application.SelectBoxItems;
 
  
-public abstract record GetFormerSchoolQuery : IRequest<IEnumerable<FormerSchoolDto>>;
+public   record GetFormerSchoolQuery : IRequest<IEnumerable<FormerSchoolDto>>;
 
 public class GetFormerSchoolQueryHandler( IApplicantRepository applicantRepository)
     : IRequestHandler<GetFormerSchoolQuery, IEnumerable<FormerSchoolDto>>

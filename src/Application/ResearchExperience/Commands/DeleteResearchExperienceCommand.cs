@@ -2,7 +2,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Domain.Entities;
 
 namespace ApplicantPortal.Application.ResearchExperience.Commands;
-public  abstract record DeleteResearchExperienceRequest(int Id) : IRequest;
+public    record DeleteResearchExperienceRequest(int Id) : IRequest;
 
 public class DeleteResearchExperienceCommand(IApplicationDbContext context)
     : IRequestHandler<DeleteResearchExperienceRequest>

@@ -3,7 +3,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 
 namespace ApplicantPortal.Application.SelectBoxItems;
 
-public abstract record GetCountryQuery : IRequest<IEnumerable<CountryDto>>;
+public   record GetCountryQuery : IRequest<IEnumerable<CountryDto>>;
 
 public class GetCountryQueryHandler(IApplicantRepository applicantRepository)
     : IRequestHandler<GetCountryQuery, IEnumerable<CountryDto>>

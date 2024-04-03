@@ -5,7 +5,7 @@ using ApplicantPortal.Application.Common.Models;
 
 namespace ApplicantPortal.Application.ResearchExperience.Queries;
 
-public abstract record GetResearchExperienceQuery : IRequest<PaginatedList<ResearchExperienceDto>>
+public   record GetResearchExperienceQuery : IRequest<PaginatedList<ResearchExperienceDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

@@ -5,7 +5,7 @@ using ApplicantPortal.Application.Common.Models;
 
 namespace ApplicantPortal.Application.DocumentUpload.Queries;
 
-public abstract record GetDocumentUploadQuery : IRequest<PaginatedList<DocumentUploadDto>>
+public   record GetDocumentUploadQuery : IRequest<PaginatedList<DocumentUploadDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

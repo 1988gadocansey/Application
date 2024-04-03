@@ -11,10 +11,10 @@ public class Address : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-           .MapGet(Index,"Index")
+           .MapGet(Addresses,"Addresses")
            .MapPost(Create,"Create");
     }
-   public async Task<IEnumerable<AddressDto>> Index(ISender sender) => await sender.Send(new GetAddressQuery());
+   public async Task<IEnumerable<AddressDto>> Addresses(ISender sender) => await sender.Send(new GetAddressQuery());
 
    public async Task<Guid> Create(ISender sender, CreateAddressRequest command) { return await sender.Send(command); }
 }

@@ -5,7 +5,7 @@ using ApplicantPortal.Application.Common.Models;
 
 namespace ApplicantPortal.Application.Referee.Queries;
 
-public abstract record GetRefereeQuery : IRequest<PaginatedList<RefereeDto>>
+public   record GetRefereeQuery : IRequest<PaginatedList<RefereeDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

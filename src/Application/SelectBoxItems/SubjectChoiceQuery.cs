@@ -4,7 +4,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 namespace ApplicantPortal.Application.SelectBoxItems;
 
 
-public abstract record GetSubjectQuery : IRequest<IEnumerable<SubjectDto>>;
+public   record GetSubjectQuery : IRequest<IEnumerable<SubjectDto>>;
 
 public class GetSubjectQueryHandler(IApplicationDbContext context, IApplicantRepository applicantRepository)
     : IRequestHandler<GetSubjectQuery, IEnumerable<SubjectDto>>

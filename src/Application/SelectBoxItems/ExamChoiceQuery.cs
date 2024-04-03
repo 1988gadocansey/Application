@@ -3,7 +3,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 
 namespace ApplicantPortal.Application.SelectBoxItems;
 
-public abstract record GetExamQuery : IRequest<IEnumerable<ExamDto>>;
+public   record GetExamQuery : IRequest<IEnumerable<ExamDto>>;
 
 public class GetExamQueryHandler( IApplicantRepository applicantRepository)
     : IRequestHandler<GetExamQuery, IEnumerable<ExamDto>>

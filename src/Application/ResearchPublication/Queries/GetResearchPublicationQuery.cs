@@ -5,7 +5,7 @@ using ApplicantPortal.Application.Common.Models;
 
 namespace ApplicantPortal.Application.ResearchPublication.Queries;
 
-public abstract record GetResearchPublicationQuery : IRequest<PaginatedList<ResearchPublicationDto>>
+public   record GetResearchPublicationQuery : IRequest<PaginatedList<ResearchPublicationDto>>
 {
     public int ResultId { get; init; }
     public int PageNumber { get; init; } = 1;

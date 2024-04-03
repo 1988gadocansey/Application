@@ -1,5 +1,5 @@
 namespace ApplicantPortal.Application.SelectBoxItems;
-public abstract record DisabilityChoiceQuery : IRequest<IEnumerable<string>>;
+public   record DisabilityChoiceQuery : IRequest<IEnumerable<string>>;
 
 public class DisabilityChoiceQueryHandler : IRequestHandler<DisabilityChoiceQuery, IEnumerable<string>>
 {

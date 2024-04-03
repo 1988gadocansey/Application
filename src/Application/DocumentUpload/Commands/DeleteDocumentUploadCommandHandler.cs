@@ -3,7 +3,7 @@ using ApplicantPortal.Domain.Entities;
 
 namespace ApplicantPortal.Application.DocumentUpload.Commands;
 
-public  abstract record DeleteDocumentUploadRequest(int Id) : IRequest;
+public    record DeleteDocumentUploadRequest(int Id) : IRequest;
 
 public class DeleteDocumentUploadCommandHandler(IApplicationDbContext context)
     : IRequestHandler<DeleteDocumentUploadRequest>

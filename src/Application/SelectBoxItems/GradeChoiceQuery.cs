@@ -4,7 +4,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 namespace ApplicantPortal.Application.SelectBoxItems;
 
  
-public abstract record GetGradeQuery : IRequest<IEnumerable<GradeDto>>;
+public   record GetGradeQuery : IRequest<IEnumerable<GradeDto>>;
 
 public class GetGradeQueryHandler(IApplicationDbContext context, IApplicantRepository applicantRepository)
     : IRequestHandler<GetGradeQuery, IEnumerable<GradeDto>>

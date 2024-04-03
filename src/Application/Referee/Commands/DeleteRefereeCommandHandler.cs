@@ -2,7 +2,7 @@ using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Domain.Entities;
 
 namespace ApplicantPortal.Application.Referee.Commands;
-public abstract record DeleteRefereeRequest(int Id) : IRequest;
+public  record DeleteRefereeRequest(int Id) : IRequest;
 
 public class DeleteRefereeCommandHandler(IApplicationDbContext context) : IRequestHandler<DeleteRefereeRequest>
 {
