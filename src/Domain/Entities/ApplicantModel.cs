@@ -96,7 +96,7 @@ public record ApplicantModel : BaseAuditableEntity
             $"  {this.Title} {this.ApplicantName?.LastName} {this.ApplicantName?.FirstName} {this.ApplicantName?.Othernames}";
     }
     public IEnumerable<ProgrammeModel>? Programmes { get; set; }
-    public IEnumerable<ResultUploadModel>? ResultUploads { get; set; }
+    /*public IEnumerable<ResultUploadModel>? ResultUploads { get; set; }
     public IEnumerable<WorkingExperienceModel?>? WorkingExperiences { get; set; }
     public IEnumerable<AcademicExperienceModel?>? AcademicExperiences { get; set; }
     public IEnumerable<DocumentUploadModel?>? Documents { get; set; }
@@ -109,5 +109,5 @@ public record ApplicantModel : BaseAuditableEntity
     public IEnumerable<ResearchPublicationModel>? ResearchPublications { get; set; }
     public IEnumerable<UniversityAttendedModel>? UniversityAttended { get; set; }
     public IEnumerable<SHSAttendedModel>? ShsAttended { get; set; }
-    public IEnumerable<DisabilitiesModel>? Disabilities { get; set; }
+    public IEnumerable<DisabilitiesModel>? Disabilities { get; set; }*/
 }

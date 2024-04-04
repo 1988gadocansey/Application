@@ -30,9 +30,9 @@ public class ApplicantRepository(IApplicationDbContext context, IMapper mapper) 
     public async Task<ApplicantVm> GetApplicant(string userId, CancellationToken cancellationToken)
     {
         var applicant = await context.ApplicantModels
-            .Include(a => a.Addresses)
-            .Include(a => a.UniversityAttended)
-            .Include(a => a.ShsAttended)
+           // .Include(a => a.Addresses)
+           // .Include(a => a.UniversityAttended)
+           // .Include(a => a.ShsAttended)
             .FirstOrDefaultAsync(a => a.ApplicationUserId == userId, cancellationToken);
         var applicantDetails = mapper.Map<ApplicantVm>(applicant);
         return applicantDetails;

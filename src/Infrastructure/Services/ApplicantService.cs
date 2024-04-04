@@ -36,9 +36,9 @@ public class ApplicantService(
     public async Task<ApplicantVm> GetApplicant(string UserId, CancellationToken cancellationToken)
     {
         var applicant = await context.ApplicantModels
-            .Include(a => a.Addresses)
-            .Include(a => a.UniversityAttended)
-            .Include(a => a.ShsAttended)
+           // .Include(a => a.Addresses)
+            //.Include(a => a.UniversityAttended)
+           // .Include(a => a.ShsAttended)
             .FirstOrDefaultAsync(a => a.ApplicationUserId == UserId, cancellationToken);
         var applicantDetails = mapper.Map<ApplicantVm>(applicant);
         return applicantDetails;
