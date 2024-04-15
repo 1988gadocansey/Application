@@ -1,4 +1,4 @@
-namespace OnlineApplicationSystem.Application.Preview;
+namespace ApplicantPortal.Application.Preview.ExportPdf;
 
 public class ExportApplicantVm
 {

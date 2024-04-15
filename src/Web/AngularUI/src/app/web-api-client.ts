@@ -5987,7 +5987,7 @@ export interface IAddressModel {
 
 export class LanguageModel implements ILanguageModel {
     id?: number;
-    name?: string | undefined;
+    name?: Languages | undefined;
     applicantModelID?: number;
 
     constructor(data?: ILanguageModel) {
@@ -6025,8 +6025,27 @@ export class LanguageModel implements ILanguageModel {
 
 export interface ILanguageModel {
     id?: number;
-    name?: string | undefined;
+    name?: Languages | undefined;
     applicantModelID?: number;
+}
+
+export enum Languages {
+    English = 0,
+    Ga = 1,
+    Dangbe = 2,
+    Dagbani = 3,
+    Twi = 4,
+    Ewe = 5,
+    Kasem = 6,
+    Gonja = 7,
+    Fante = 8,
+    French = 9,
+    Spanish = 10,
+    Dagaare = 11,
+    Yoruba = 12,
+    Igbo = 13,
+    Hausa = 14,
+    Nzema = 15,
 }
 
 export class SmsModel implements ISmsModel {
@@ -6450,16 +6469,12 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
     denomination?: string | undefined;
     idCard?: IdCards;
     referrals?: string | undefined;
-    admitted?: boolean | undefined;
-    levelAdmitted?: string | undefined;
-    grade?: number | undefined;
-    admittedBy?: number | undefined;
     sponsorship?: boolean | undefined;
     sponsorshipCompany?: string | undefined;
     sponsorshipLocation?: string | undefined;
     sponsorshipCompanyContact?: string | undefined;
     nationalIDNo?: string | undefined;
-    previousIndexNumber?: string | undefined;
+    languages?: Languages[] | undefined;
 
     constructor(data?: ICreateBiodataRequest) {
         if (data) {
@@ -6507,16 +6522,16 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
             this.denomination = _data["denomination"];
             this.idCard = _data["idCard"];
             this.referrals = _data["referrals"];
-            this.admitted = _data["admitted"];
-            this.levelAdmitted = _data["levelAdmitted"];
-            this.grade = _data["grade"];
-            this.admittedBy = _data["admittedBy"];
             this.sponsorship = _data["sponsorship"];
             this.sponsorshipCompany = _data["sponsorshipCompany"];
             this.sponsorshipLocation = _data["sponsorshipLocation"];
             this.sponsorshipCompanyContact = _data["sponsorshipCompanyContact"];
             this.nationalIDNo = _data["nationalIDNo"];
-            this.previousIndexNumber = _data["previousIndexNumber"];
+            if (Array.isArray(_data["languages"])) {
+                this.languages = [] as any;
+                for (let item of _data["languages"])
+                    this.languages!.push(item);
+            }
         }
     }
 
@@ -6564,16 +6579,16 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
         data["denomination"] = this.denomination;
         data["idCard"] = this.idCard;
         data["referrals"] = this.referrals;
-        data["admitted"] = this.admitted;
-        data["levelAdmitted"] = this.levelAdmitted;
-        data["grade"] = this.grade;
-        data["admittedBy"] = this.admittedBy;
         data["sponsorship"] = this.sponsorship;
         data["sponsorshipCompany"] = this.sponsorshipCompany;
         data["sponsorshipLocation"] = this.sponsorshipLocation;
         data["sponsorshipCompanyContact"] = this.sponsorshipCompanyContact;
         data["nationalIDNo"] = this.nationalIDNo;
-        data["previousIndexNumber"] = this.previousIndexNumber;
+        if (Array.isArray(this.languages)) {
+            data["languages"] = [];
+            for (let item of this.languages)
+                data["languages"].push(item);
+        }
         return data;
     }
 }
@@ -6614,16 +6629,12 @@ export interface ICreateBiodataRequest {
     denomination?: string | undefined;
     idCard?: IdCards;
     referrals?: string | undefined;
-    admitted?: boolean | undefined;
-    levelAdmitted?: string | undefined;
-    grade?: number | undefined;
-    admittedBy?: number | undefined;
     sponsorship?: boolean | undefined;
     sponsorshipCompany?: string | undefined;
     sponsorshipLocation?: string | undefined;
     sponsorshipCompanyContact?: string | undefined;
     nationalIDNo?: string | undefined;
-    previousIndexNumber?: string | undefined;
+    languages?: Languages[] | undefined;
 }
 
 export enum IdCards {

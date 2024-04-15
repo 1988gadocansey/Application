@@ -2,7 +2,8 @@ using ApplicantPortal.Application.Common.Dtos;
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Domain.Entities;
 using ApplicantPortal.Domain.ValueObjects;
- 
+using Microsoft.Extensions.Logging;
+
 
 namespace ApplicantPortal.Application.Biodata.Commands.CreateBiodata;
 
@@ -10,11 +11,14 @@ public class CreateBiodataCommandHandler(
     IApplicationDbContext context,
     IUser currentUserService,
     IIdentityService identityService,
-    IApplicantRepository applicantRepository)
+    IApplicantRepository applicantRepository 
+    )
     : IRequestHandler<CreateBiodataRequest, int>
 {
     public async Task<int> Handle(CreateBiodataRequest request, CancellationToken cancellationToken)
     {
+         
+        Console.WriteLine($"firstname is  {request.FirstName}");
         string? userId = currentUserService.Id;
         UserDto userDetails = await identityService.GetApplicationUserDetails(userId, cancellationToken);
         RegionModel? region =
@@ -69,7 +73,7 @@ public class CreateBiodataCommandHandler(
                 SponsorShipLocation = request.SponsorshipLocation,
                 YearOfAdmission = calender!.Year,
                 Admitted = false,
-                PreviousIndexNumber = request.PreviousIndexNumber,
+              //  PreviousIndexNumber = request.PreviousIndexNumber,
                 HallFeesPaid = Money.Create("GHS", 0)
             };
 

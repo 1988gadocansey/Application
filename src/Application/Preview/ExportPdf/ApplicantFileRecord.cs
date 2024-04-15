@@ -7,7 +7,7 @@ namespace ApplicantPortal.Application.Preview.ExportPdf;
 public class ExportApplicantFileRecord : IMapFrom<ApplicantModel>
 
 {
-    public ExportApplicantFileRecord(long applicationNumber, string firstName, string lastName, string otherName, Gender gender, DateOnly dob, Title title, MaritalStatus? maritalStatus, string phone, string? altPhone, string? email, string? postGprs, string? emergencyContact, string? hometown, int? district, IdCards? nationalIdType, int? regionId, int? nationalityId, bool? residentialStatus, string? guardianName, string? guardianPhone, string? guardianOccupation, string? guardianRelationship, bool? disability, Disability? disabilityType, string? sourceOfFinance, int? religionId, string? denomination, string? referrals, Session? entryMode, string? firstQualification, string? secondQualification, string? programmeStudied, string? formerSchool, int? formerSchoolNewId, int? programmeAdmittedId, int? lastYearInSchool, bool? awaiting, int? grade, string? preferredHall, bool? eligible, bool? admitted, int? admittedBy, string? admissionType, string? levelAdmitted, int? firstChoiceId, int? secondChoiceId, int? thirdChoiceId, bool? sponsorShip, string? sponsorShipCompany, string? sponsorShipLocation, string? sponsorShipCompanyContact)
+    /*public ExportApplicantFileRecord(long applicationNumber, string firstName, string lastName, string otherName, Gender gender, DateOnly dob, Title title, MaritalStatus? maritalStatus, string phone, string? altPhone, string? email, string? postGprs, string? emergencyContact, string? hometown, int? district, IdCards? nationalIdType, int? regionId, int? nationalityId, bool? residentialStatus, string? guardianName, string? guardianPhone, string? guardianOccupation, string? guardianRelationship, bool? disability, Disability? disabilityType, string? sourceOfFinance, int? religionId, string? denomination, string? referrals, Session? entryMode, string? firstQualification, string? secondQualification, string? programmeStudied, string? formerSchool, int? formerSchoolNewId, int? programmeAdmittedId, int? lastYearInSchool, bool? awaiting, int? grade, string? preferredHall, bool? eligible, bool? admitted, int? admittedBy, string? admissionType, string? levelAdmitted, int? firstChoiceId, int? secondChoiceId, int? thirdChoiceId, bool? sponsorShip, string? sponsorShipCompany, string? sponsorShipLocation, string? sponsorShipCompanyContact)
     {
         ApplicationNumber = applicationNumber;
         FirstName = firstName;
@@ -61,17 +61,17 @@ public class ExportApplicantFileRecord : IMapFrom<ApplicantModel>
         SponsorShipCompany = sponsorShipCompany;
         SponsorShipLocation = sponsorShipLocation;
         SponsorShipCompanyContact = sponsorShipCompanyContact;
-    }
+    }*/
 
     public long ApplicationNumber { get; init; }
-    public string FirstName { get; init; }
-    public string LastName { get; init; }
-    public string OtherName { get; init; }
+    public string? FirstName { get; init; }
+    public string? LastName { get; init; }
+    public string? OtherName { get; init; }
     public Gender Gender { get; init; }
     public DateOnly Dob { get; init; }
     public Title Title { get; init; }
     public MaritalStatus? MaritalStatus { get; set; }
-    public string Phone { get; init; }
+    public string? Phone { get; init; }
     public string? AltPhone { get; init; }
     public string? Email { get; init; }
     public string? PostGPRS { get; init; }

@@ -1,14 +1,17 @@
-﻿using Azure.Identity;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Infrastructure.Data;
 using ApplicantPortal.Web.Services;
+using Azure.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore.Storage.Json;
+using Newtonsoft.Json;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace ApplicantPortal.Web;
 
 public static class DependencyInjection
 {
@@ -40,7 +43,20 @@ public static class DependencyInjection
             options.SuppressModelStateInvalidFilter = true);
 
         services.AddEndpointsApiExplorer();
+         
+        // added for json serialization / deserialization
 
+        services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+        {
+            
+            options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+       options.SerializerOptions.Converters.Add(new JsonBoolConverter());
+            
+        });
+        
+         
+       
         services.AddOpenApiDocument((configure, sp) =>
         {
             configure.Title = "ApplicantPortal API";

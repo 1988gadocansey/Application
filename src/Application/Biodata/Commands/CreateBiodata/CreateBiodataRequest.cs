@@ -41,15 +41,16 @@ namespace ApplicantPortal.Application.Biodata.Commands.CreateBiodata
         public string? Denomination { get; init; }
         public IdCards IdCard { get; init; }
         public string? Referrals { get; init; }
-        public bool? Admitted { get; init; }
+        /*public bool? Admitted { get; init; }
         public string? LevelAdmitted { get; init; }
         public int? Grade { get; init; }
-        public int? AdmittedBy { get; init; }
+        public int? AdmittedBy { get; init; }*/
         public bool? Sponsorship { get; set; }
         public string? SponsorshipCompany { get; set; }
         public string? SponsorshipLocation { get; set; }
         public string? SponsorshipCompanyContact { get; set; }
         public string? NationalIDNo { get; set; }
-        public string? PreviousIndexNumber { get; set; }
+       // public string? PreviousIndexNumber { get; set; }
+        public Languages[]? Languages { get; set; }
     }
 }

@@ -14,7 +14,11 @@ public class Biodata : EndpointGroupBase
             .RequireAuthorization()
             .MapPost(CreateBiodata,"Create");
     }
- 
-    public async Task<int> CreateBiodata(ISender sender, CreateBiodataRequest command) { return await sender.Send(command); }
+
+    public async Task<int> CreateBiodata(ISender sender, CreateBiodataRequest command)
+    {
+        Console.WriteLine($"the firstname is .... {command.FirstName}");
+        return await sender.Send(command);
+    }
 }
 

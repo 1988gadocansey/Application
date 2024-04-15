@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
 using ApplicantPortal.Application;
 using ApplicantPortal.Infrastructure;
 using ApplicantPortal.Infrastructure.Data;
+using ApplicantPortal.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 

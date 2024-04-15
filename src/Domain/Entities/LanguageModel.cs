@@ -7,7 +7,7 @@ namespace ApplicantPortal.Domain.Entities
 
         [Key]
         public int Id { set; get; }
-        public string? Name { set; get; }
+        public Languages? Name { set; get; }
         public int ApplicantModelID { set; get; }
         private IEnumerable<ApplicantModel>? ApplicantModel { get; set; }
 

@@ -4267,14 +4267,58 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Languages"
+              }
+            ]
           },
           "applicantModelID": {
             "type": "integer",
             "format": "int32"
           }
         }
+      },
+      "Languages": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "English",
+          "Ga",
+          "Dangbe",
+          "Dagbani",
+          "Twi",
+          "Ewe",
+          "Kasem",
+          "Gonja",
+          "Fante",
+          "French",
+          "Spanish",
+          "Dagaare",
+          "Yoruba",
+          "Igbo",
+          "Hausa",
+          "Nzema"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
       },
       "SmsModel": {
         "type": "object",
@@ -4679,24 +4723,6 @@
             "type": "string",
             "nullable": true
           },
-          "admitted": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "levelAdmitted": {
-            "type": "string",
-            "nullable": true
-          },
-          "grade": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "admittedBy": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
           "sponsorship": {
             "type": "boolean",
             "nullable": true
@@ -4717,9 +4743,12 @@
             "type": "string",
             "nullable": true
           },
-          "previousIndexNumber": {
-            "type": "string",
-            "nullable": true
+          "languages": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/Languages"
+            }
           }
         }
       },
