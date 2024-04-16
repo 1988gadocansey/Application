@@ -34,7 +34,12 @@ public class CreateProgrammeInfoCommandHandler(
         applicant.FirstQualification = request.FirstQualification;
         applicant.SecondQualification = request.SecondQualification;
         applicant.Awaiting = request.Awaiting;
-        applicant.IndexNo = request.IndexNo;
+        applicant.PreviousIndexNumber = request.PreviousIndexNumber;
+        applicant.SourceOfFinance = request.SourceOfFinance!.ToUpper();
+        applicant.SponsorShip = request.Sponsorship!;
+        applicant.SponsorShipCompany = request.SponsorshipCompany!;
+        applicant.SponsorShipCompanyContact = request.SponsorshipCompanyContact!;
+        applicant.SponsorShipLocation = request.SponsorshipLocation!;
         // applicant.Grade = request.Grade;
         return await context.SaveChangesAsync(cancellationToken);
         

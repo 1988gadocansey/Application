@@ -3889,7 +3889,6 @@ export class ApplicantModel extends BaseAuditableEntity implements IApplicantMod
     phone?: PhoneNumber | undefined;
     altPhone?: PhoneNumber | undefined;
     email?: EmailAddress | undefined;
-    postGprs?: string | undefined;
     emergencyContact?: PhoneNumber | undefined;
     hometown?: string | undefined;
     districtId?: number | undefined;
@@ -3976,7 +3975,6 @@ export class ApplicantModel extends BaseAuditableEntity implements IApplicantMod
             this.phone = _data["phone"] ? PhoneNumber.fromJS(_data["phone"]) : <any>undefined;
             this.altPhone = _data["altPhone"] ? PhoneNumber.fromJS(_data["altPhone"]) : <any>undefined;
             this.email = _data["email"] ? EmailAddress.fromJS(_data["email"]) : <any>undefined;
-            this.postGprs = _data["postGprs"];
             this.emergencyContact = _data["emergencyContact"] ? PhoneNumber.fromJS(_data["emergencyContact"]) : <any>undefined;
             this.hometown = _data["hometown"];
             this.districtId = _data["districtId"];
@@ -4071,7 +4069,6 @@ export class ApplicantModel extends BaseAuditableEntity implements IApplicantMod
         data["phone"] = this.phone ? this.phone.toJSON() : <any>undefined;
         data["altPhone"] = this.altPhone ? this.altPhone.toJSON() : <any>undefined;
         data["email"] = this.email ? this.email.toJSON() : <any>undefined;
-        data["postGprs"] = this.postGprs;
         data["emergencyContact"] = this.emergencyContact ? this.emergencyContact.toJSON() : <any>undefined;
         data["hometown"] = this.hometown;
         data["districtId"] = this.districtId;
@@ -4160,7 +4157,6 @@ export interface IApplicantModel extends IBaseAuditableEntity {
     phone?: PhoneNumber | undefined;
     altPhone?: PhoneNumber | undefined;
     email?: EmailAddress | undefined;
-    postGprs?: string | undefined;
     emergencyContact?: PhoneNumber | undefined;
     hometown?: string | undefined;
     districtId?: number | undefined;
@@ -4297,7 +4293,7 @@ export enum Title {
     Rev = 3,
     Dr = 4,
     PhD = 5,
-    Imam = 6,
+    Chief = 6,
     Prof = 7,
 }
 
@@ -5987,8 +5983,8 @@ export interface IAddressModel {
 
 export class LanguageModel implements ILanguageModel {
     id?: number;
-    name?: Languages | undefined;
-    applicantModelID?: number;
+    name?: string | undefined;
+    applicant?: number;
 
     constructor(data?: ILanguageModel) {
         if (data) {
@@ -6003,7 +5999,7 @@ export class LanguageModel implements ILanguageModel {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
-            this.applicantModelID = _data["applicantModelID"];
+            this.applicant = _data["applicant"];
         }
     }
 
@@ -6018,34 +6014,15 @@ export class LanguageModel implements ILanguageModel {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        data["applicantModelID"] = this.applicantModelID;
+        data["applicant"] = this.applicant;
         return data;
     }
 }
 
 export interface ILanguageModel {
     id?: number;
-    name?: Languages | undefined;
-    applicantModelID?: number;
-}
-
-export enum Languages {
-    English = 0,
-    Ga = 1,
-    Dangbe = 2,
-    Dagbani = 3,
-    Twi = 4,
-    Ewe = 5,
-    Kasem = 6,
-    Gonja = 7,
-    Fante = 8,
-    French = 9,
-    Spanish = 10,
-    Dagaare = 11,
-    Yoruba = 12,
-    Igbo = 13,
-    Hausa = 14,
-    Nzema = 15,
+    name?: string | undefined;
+    applicant?: number;
 }
 
 export class SmsModel implements ISmsModel {
@@ -6351,6 +6328,7 @@ export interface ISHSAttendedModel {
 export class DisabilitiesModel implements IDisabilitiesModel {
     id?: number;
     name?: string | undefined;
+    applicantModelId?: number | undefined;
 
     constructor(data?: IDisabilitiesModel) {
         if (data) {
@@ -6365,6 +6343,7 @@ export class DisabilitiesModel implements IDisabilitiesModel {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
+            this.applicantModelId = _data["applicantModelId"];
         }
     }
 
@@ -6379,6 +6358,7 @@ export class DisabilitiesModel implements IDisabilitiesModel {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
+        data["applicantModelId"] = this.applicantModelId;
         return data;
     }
 }
@@ -6386,6 +6366,7 @@ export class DisabilitiesModel implements IDisabilitiesModel {
 export interface IDisabilitiesModel {
     id?: number;
     name?: string | undefined;
+    applicantModelId?: number | undefined;
 }
 
 export enum ApplicationType {
@@ -6451,7 +6432,6 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
     phone?: string | undefined;
     altPhone?: string | undefined;
     email?: string | undefined;
-    postGPRS?: string | undefined;
     emergencyContact?: string | undefined;
     hometown?: string | undefined;
     district?: number | undefined;
@@ -6463,16 +6443,11 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
     guardianOccupation?: string | undefined;
     guardianRelationship?: string | undefined;
     disability?: boolean | undefined;
-    disabilityType?: Disability | undefined;
-    sourceOfFinance?: string | undefined;
+    disabilityType?: Disability[] | undefined;
     religionId?: number;
     denomination?: string | undefined;
     idCard?: IdCards;
     referrals?: string | undefined;
-    sponsorship?: boolean | undefined;
-    sponsorshipCompany?: string | undefined;
-    sponsorshipLocation?: string | undefined;
-    sponsorshipCompanyContact?: string | undefined;
     nationalIDNo?: string | undefined;
     languages?: Languages[] | undefined;
 
@@ -6504,7 +6479,6 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
             this.phone = _data["phone"];
             this.altPhone = _data["altPhone"];
             this.email = _data["email"];
-            this.postGPRS = _data["postGPRS"];
             this.emergencyContact = _data["emergencyContact"];
             this.hometown = _data["hometown"];
             this.district = _data["district"];
@@ -6516,16 +6490,15 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
             this.guardianOccupation = _data["guardianOccupation"];
             this.guardianRelationship = _data["guardianRelationship"];
             this.disability = _data["disability"];
-            this.disabilityType = _data["disabilityType"];
-            this.sourceOfFinance = _data["sourceOfFinance"];
+            if (Array.isArray(_data["disabilityType"])) {
+                this.disabilityType = [] as any;
+                for (let item of _data["disabilityType"])
+                    this.disabilityType!.push(item);
+            }
             this.religionId = _data["religionId"];
             this.denomination = _data["denomination"];
             this.idCard = _data["idCard"];
             this.referrals = _data["referrals"];
-            this.sponsorship = _data["sponsorship"];
-            this.sponsorshipCompany = _data["sponsorshipCompany"];
-            this.sponsorshipLocation = _data["sponsorshipLocation"];
-            this.sponsorshipCompanyContact = _data["sponsorshipCompanyContact"];
             this.nationalIDNo = _data["nationalIDNo"];
             if (Array.isArray(_data["languages"])) {
                 this.languages = [] as any;
@@ -6561,7 +6534,6 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
         data["phone"] = this.phone;
         data["altPhone"] = this.altPhone;
         data["email"] = this.email;
-        data["postGPRS"] = this.postGPRS;
         data["emergencyContact"] = this.emergencyContact;
         data["hometown"] = this.hometown;
         data["district"] = this.district;
@@ -6573,16 +6545,15 @@ export class CreateBiodataRequest implements ICreateBiodataRequest {
         data["guardianOccupation"] = this.guardianOccupation;
         data["guardianRelationship"] = this.guardianRelationship;
         data["disability"] = this.disability;
-        data["disabilityType"] = this.disabilityType;
-        data["sourceOfFinance"] = this.sourceOfFinance;
+        if (Array.isArray(this.disabilityType)) {
+            data["disabilityType"] = [];
+            for (let item of this.disabilityType)
+                data["disabilityType"].push(item);
+        }
         data["religionId"] = this.religionId;
         data["denomination"] = this.denomination;
         data["idCard"] = this.idCard;
         data["referrals"] = this.referrals;
-        data["sponsorship"] = this.sponsorship;
-        data["sponsorshipCompany"] = this.sponsorshipCompany;
-        data["sponsorshipLocation"] = this.sponsorshipLocation;
-        data["sponsorshipCompanyContact"] = this.sponsorshipCompanyContact;
         data["nationalIDNo"] = this.nationalIDNo;
         if (Array.isArray(this.languages)) {
             data["languages"] = [];
@@ -6611,7 +6582,6 @@ export interface ICreateBiodataRequest {
     phone?: string | undefined;
     altPhone?: string | undefined;
     email?: string | undefined;
-    postGPRS?: string | undefined;
     emergencyContact?: string | undefined;
     hometown?: string | undefined;
     district?: number | undefined;
@@ -6623,16 +6593,11 @@ export interface ICreateBiodataRequest {
     guardianOccupation?: string | undefined;
     guardianRelationship?: string | undefined;
     disability?: boolean | undefined;
-    disabilityType?: Disability | undefined;
-    sourceOfFinance?: string | undefined;
+    disabilityType?: Disability[] | undefined;
     religionId?: number;
     denomination?: string | undefined;
     idCard?: IdCards;
     referrals?: string | undefined;
-    sponsorship?: boolean | undefined;
-    sponsorshipCompany?: string | undefined;
-    sponsorshipLocation?: string | undefined;
-    sponsorshipCompanyContact?: string | undefined;
     nationalIDNo?: string | undefined;
     languages?: Languages[] | undefined;
 }
@@ -6645,6 +6610,25 @@ export enum IdCards {
     DriversLicense = 4,
     Other = 5,
     BirthCertificate = 6,
+}
+
+export enum Languages {
+    English = 0,
+    Ga = 1,
+    Dangbe = 2,
+    Dagbani = 3,
+    Twi = 4,
+    Ewe = 5,
+    Kasem = 6,
+    Gonja = 7,
+    Fante = 8,
+    French = 9,
+    Spanish = 10,
+    Dagaare = 11,
+    Yoruba = 12,
+    Igbo = 13,
+    Hausa = 14,
+    Nzema = 15,
 }
 
 export class UserDto implements IUserDto {
@@ -7492,7 +7476,12 @@ export class ProgrammeInfoRequest implements IProgrammeInfoRequest {
     thirdChoiceId?: number | undefined;
     awaiting?: boolean | undefined;
     lastYearInSchool?: number | undefined;
-    indexNo?: string | undefined;
+    sponsorship?: boolean | undefined;
+    sponsorshipCompany?: string | undefined;
+    sponsorshipLocation?: string | undefined;
+    sponsorshipCompanyContact?: string | undefined;
+    previousIndexNumber?: string | undefined;
+    sourceOfFinance?: string | undefined;
 
     constructor(data?: IProgrammeInfoRequest) {
         if (data) {
@@ -7514,7 +7503,12 @@ export class ProgrammeInfoRequest implements IProgrammeInfoRequest {
             this.thirdChoiceId = _data["thirdChoiceId"];
             this.awaiting = _data["awaiting"];
             this.lastYearInSchool = _data["lastYearInSchool"];
-            this.indexNo = _data["indexNo"];
+            this.sponsorship = _data["sponsorship"];
+            this.sponsorshipCompany = _data["sponsorshipCompany"];
+            this.sponsorshipLocation = _data["sponsorshipLocation"];
+            this.sponsorshipCompanyContact = _data["sponsorshipCompanyContact"];
+            this.previousIndexNumber = _data["previousIndexNumber"];
+            this.sourceOfFinance = _data["sourceOfFinance"];
         }
     }
 
@@ -7536,7 +7530,12 @@ export class ProgrammeInfoRequest implements IProgrammeInfoRequest {
         data["thirdChoiceId"] = this.thirdChoiceId;
         data["awaiting"] = this.awaiting;
         data["lastYearInSchool"] = this.lastYearInSchool;
-        data["indexNo"] = this.indexNo;
+        data["sponsorship"] = this.sponsorship;
+        data["sponsorshipCompany"] = this.sponsorshipCompany;
+        data["sponsorshipLocation"] = this.sponsorshipLocation;
+        data["sponsorshipCompanyContact"] = this.sponsorshipCompanyContact;
+        data["previousIndexNumber"] = this.previousIndexNumber;
+        data["sourceOfFinance"] = this.sourceOfFinance;
         return data;
     }
 }
@@ -7551,7 +7550,12 @@ export interface IProgrammeInfoRequest {
     thirdChoiceId?: number | undefined;
     awaiting?: boolean | undefined;
     lastYearInSchool?: number | undefined;
-    indexNo?: string | undefined;
+    sponsorship?: boolean | undefined;
+    sponsorshipCompany?: string | undefined;
+    sponsorshipLocation?: string | undefined;
+    sponsorshipCompanyContact?: string | undefined;
+    previousIndexNumber?: string | undefined;
+    sourceOfFinance?: string | undefined;
 }
 
 export class PaginatedListOfRefereeDto implements IPaginatedListOfRefereeDto {

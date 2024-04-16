@@ -16,7 +16,7 @@ public record ApplicantModel : BaseAuditableEntity
     public PhoneNumber? Phone { get; set; }
     public PhoneNumber? AltPhone { get; set; }
     public EmailAddress? Email { get; set; }
-    public string? PostGprs { get; set; }
+    //public string? PostGprs { get; set; }
     public PhoneNumber? EmergencyContact { get; set; }
     public string? Hometown { get; set; }
     public int? DistrictId { get; set; }

@@ -2558,10 +2558,6 @@
                   }
                 ]
               },
-              "postGprs": {
-                "type": "string",
-                "nullable": true
-              },
               "emergencyContact": {
                 "nullable": true,
                 "oneOf": [
@@ -2946,7 +2942,7 @@
           "Rev",
           "Dr",
           "PhD",
-          "Imam",
+          "Chief",
           "Prof"
         ],
         "enum": [
@@ -4267,58 +4263,14 @@
             "format": "int32"
           },
           "name": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Languages"
-              }
-            ]
+            "type": "string",
+            "nullable": true
           },
-          "applicantModelID": {
+          "applicant": {
             "type": "integer",
             "format": "int32"
           }
         }
-      },
-      "Languages": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "English",
-          "Ga",
-          "Dangbe",
-          "Dagbani",
-          "Twi",
-          "Ewe",
-          "Kasem",
-          "Gonja",
-          "Fante",
-          "French",
-          "Spanish",
-          "Dagaare",
-          "Yoruba",
-          "Igbo",
-          "Hausa",
-          "Nzema"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15
-        ]
       },
       "SmsModel": {
         "type": "object",
@@ -4532,6 +4484,11 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "applicantModelId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         }
       },
@@ -4645,10 +4602,6 @@
             "type": "string",
             "nullable": true
           },
-          "postGPRS": {
-            "type": "string",
-            "nullable": true
-          },
           "emergencyContact": {
             "type": "string",
             "nullable": true
@@ -4697,16 +4650,11 @@
             "nullable": true
           },
           "disabilityType": {
+            "type": "array",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Disability"
-              }
-            ]
-          },
-          "sourceOfFinance": {
-            "type": "string",
-            "nullable": true
+            "items": {
+              "$ref": "#/components/schemas/Disability"
+            }
           },
           "religionId": {
             "type": "integer",
@@ -4720,22 +4668,6 @@
             "$ref": "#/components/schemas/IdCards"
           },
           "referrals": {
-            "type": "string",
-            "nullable": true
-          },
-          "sponsorship": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "sponsorshipCompany": {
-            "type": "string",
-            "nullable": true
-          },
-          "sponsorshipLocation": {
-            "type": "string",
-            "nullable": true
-          },
-          "sponsorshipCompanyContact": {
             "type": "string",
             "nullable": true
           },
@@ -4772,6 +4704,46 @@
           4,
           5,
           6
+        ]
+      },
+      "Languages": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "English",
+          "Ga",
+          "Dangbe",
+          "Dagbani",
+          "Twi",
+          "Ewe",
+          "Kasem",
+          "Gonja",
+          "Fante",
+          "French",
+          "Spanish",
+          "Dagaare",
+          "Yoruba",
+          "Igbo",
+          "Hausa",
+          "Nzema"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
         ]
       },
       "UserDto": {
@@ -5315,7 +5287,27 @@
             "format": "int32",
             "nullable": true
           },
-          "indexNo": {
+          "sponsorship": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sponsorshipCompany": {
+            "type": "string",
+            "nullable": true
+          },
+          "sponsorshipLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "sponsorshipCompanyContact": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousIndexNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "sourceOfFinance": {
             "type": "string",
             "nullable": true
           }

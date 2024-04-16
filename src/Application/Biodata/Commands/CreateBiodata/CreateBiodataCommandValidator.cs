@@ -25,7 +25,7 @@ public class CreateBiodataCommandValidator : AbstractValidator<CreateBiodataRequ
              .NotNull().WithMessage("IdCard type must be specified.");
        ;
          RuleFor(v => v.Gender)
-       .NotEmpty().WithMessage("Gender is required.");
+       .NotEmpty().WithMessage("Gender is always required blah blah.");
 
          RuleFor(v => v.Title)
        .NotEmpty().WithMessage("Title is required.");

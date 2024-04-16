@@ -6,6 +6,6 @@ public record DisabilitiesModel
     [Key]
     public int Id { set; get; }
     public string? Name { set; get; }
-
+    public int? ApplicantModelId { set; get; }
 
 }

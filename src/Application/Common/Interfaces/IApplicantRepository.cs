@@ -14,7 +14,7 @@ public interface IApplicantRepository
     // public Task<bool> SendSMSNotification(string phoneNumber, string message, long formNo, string appSender);
     // public Task SendEmailNotification(string Email, string Message);
     public Task<bool> ContainsDuplicates(IEnumerable<int> data);
-    public Task<int> GetAge(DateOnly dateOfBirth);
+    public  Task<int> GetAge(DateOnly dateOfBirth);
     public int GetGrade(string applicant);
     public Task<bool> QualifiesMature(int age);
     public int CheckFailed(List<int> gradeValues);

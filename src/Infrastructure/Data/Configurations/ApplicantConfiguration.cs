@@ -91,6 +91,8 @@ public class ApplicantConfiguration : IEntityTypeConfiguration<ApplicantModel>
             .HasColumnName("Gender")
             .IsRequired()
             .HasConversion<string>();
+        
+        
 
         builder.Property(x => x.Title)
             .HasColumnName("Title")
@@ -109,7 +111,7 @@ public class ApplicantConfiguration : IEntityTypeConfiguration<ApplicantModel>
         builder.OwnsOne(x => x.IdCard, nameBuilder =>
         {
             nameBuilder.Property(p => p.NationalIDNo).HasColumnName("NationalIDNo").IsRequired();
-            nameBuilder.Property(p => p.NationalIDType).HasColumnName("NationalIDType").IsRequired();
+            nameBuilder.Property(p => p.NationalIDType).HasColumnName("NationalIDType").IsRequired().HasConversion<string>();;
         });
         /*   builder.HasOne(x => x.FirstChoice)
              .WithMany(x => x.Applicant)

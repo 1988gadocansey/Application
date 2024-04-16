@@ -7,18 +7,18 @@ public record PhoneNumber : ValueObject
 {
     private string? AreaCode { get; }
     public string? Number { get; }
-    private PhoneNumber(string? areaCode) {
+    /*private PhoneNumber(string? areaCode) {
         AreaCode = areaCode;
-    }
+    }*/
     public PhoneNumber(string? number, string? areaCode)
     {
         // AreaCode = areaCode;
         Number = number;
         AreaCode = areaCode;
     }
-    public static PhoneNumber Create(string? number)
+    public static PhoneNumber Create(string? number, string? areaCode)
     {
-        return new PhoneNumber(number);
+        return new PhoneNumber(number,areaCode);
     }
     /*   public string AreaCode { get; private set; }
       public string Number { get; private set; } */

@@ -8,7 +8,7 @@ public enum Title
     Rev,
     Dr,
     PhD,
-    Imam,
+    Chief,
     Prof
 
 }

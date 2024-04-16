@@ -18,13 +18,13 @@ public class ApplicantRepository(IApplicationDbContext context, IMapper mapper) 
         return enumerable.Count() != enumerable.Distinct().Count() ? Task.FromResult(true) : Task.FromResult(false);
     }
 
-    public Task<int> GetAge(DateOnly dateOfBirth)
+    public async Task<int> GetAge(DateOnly dateOfBirth)
     {
         var today = DateTime.Today;
         var a = (today.Year * 100 + today.Month) * 100 + today.Day;
         var b = (dateOfBirth.Year * 100 + dateOfBirth.Month) * 100 + dateOfBirth.Day;
         var age = (a - b) / 10000;
-        return Task.FromResult(age);
+        return await Task.FromResult(age);
     }
 
     public async Task<ApplicantVm> GetApplicant(string userId, CancellationToken cancellationToken)
