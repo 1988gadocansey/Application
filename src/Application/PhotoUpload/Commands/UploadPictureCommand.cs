@@ -11,6 +11,7 @@ public class UploadPictureCommand(
 {
     public async Task<int> Handle(UploadPictureRequest request, CancellationToken cancellationToken)
     {
+        Console.WriteLine("esthersdsjdkjskdjksjdkjskjdksd");
         var pictureUpload =
             await photoUploadService.SendFileToServer(currentUserService.Id!, request.Files, cancellationToken);
         await identityService.UpdateApplicationPictureStatus(currentUserService.Id, request.Files, cancellationToken);

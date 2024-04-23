@@ -16,8 +16,8 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface IClient {
-    addresses(): Observable<AddressDto[]>;
-    create(command: CreateAddressRequest): Observable<string>;
+    addresses(): Observable<PaginatedListOfAddressDto>;
+    create(command: CreateAddressRequest): Observable<number>;
     applicantInfo(): Observable<ApplicantVm>;
     getForm(): Observable<ApplicationType[]>;
     saveFormChanges(command: CreateFormUpdateRequest): Observable<boolean>;
@@ -99,7 +99,7 @@ export class Client implements IClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    addresses(): Observable<AddressDto[]> {
+    addresses(): Observable<PaginatedListOfAddressDto> {
         let url_ = this.baseUrl + "/api/Address/Addresses";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -118,14 +118,14 @@ export class Client implements IClient {
                 try {
                     return this.processAddresses(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<AddressDto[]>;
+                    return _observableThrow(e) as any as Observable<PaginatedListOfAddressDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<AddressDto[]>;
+                return _observableThrow(response_) as any as Observable<PaginatedListOfAddressDto>;
         }));
     }
 
-    protected processAddresses(response: HttpResponseBase): Observable<AddressDto[]> {
+    protected processAddresses(response: HttpResponseBase): Observable<PaginatedListOfAddressDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -136,14 +136,7 @@ export class Client implements IClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(AddressDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
+            result200 = PaginatedListOfAddressDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -154,8 +147,8 @@ export class Client implements IClient {
         return _observableOf(null as any);
     }
 
-    create(command: CreateAddressRequest): Observable<string> {
-        let url_ = this.baseUrl + "/api/Address/Create";
+    create(command: CreateAddressRequest): Observable<number> {
+        let url_ = this.baseUrl + "/api/Address/Address/Create";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(command);
@@ -177,14 +170,14 @@ export class Client implements IClient {
                 try {
                     return this.processCreate(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<string>;
+                    return _observableThrow(e) as any as Observable<number>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<string>;
+                return _observableThrow(response_) as any as Observable<number>;
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<string> {
+    protected processCreate(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3727,6 +3720,70 @@ export class Client implements IClient {
     }
 }
 
+export class PaginatedListOfAddressDto implements IPaginatedListOfAddressDto {
+    items?: AddressDto[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+
+    constructor(data?: IPaginatedListOfAddressDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(AddressDto.fromJS(item));
+            }
+            this.pageNumber = _data["pageNumber"];
+            this.totalPages = _data["totalPages"];
+            this.totalCount = _data["totalCount"];
+            this.hasPreviousPage = _data["hasPreviousPage"];
+            this.hasNextPage = _data["hasNextPage"];
+        }
+    }
+
+    static fromJS(data: any): PaginatedListOfAddressDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PaginatedListOfAddressDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["pageNumber"] = this.pageNumber;
+        data["totalPages"] = this.totalPages;
+        data["totalCount"] = this.totalCount;
+        data["hasPreviousPage"] = this.hasPreviousPage;
+        data["hasNextPage"] = this.hasNextPage;
+        return data;
+    }
+}
+
+export interface IPaginatedListOfAddressDto {
+    items?: AddressDto[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+}
+
 export class AddressDto implements IAddressDto {
     id?: number;
     street?: string | undefined;
@@ -5003,13 +5060,11 @@ export interface IBaseEvent {
 }
 
 export class CreateAddressRequest implements ICreateAddressRequest {
-    id?: string;
     street?: string | undefined;
     houseNumber?: string | undefined;
     city?: string | undefined;
     gprs?: string | undefined;
     box?: string | undefined;
-    applicant?: number;
 
     constructor(data?: ICreateAddressRequest) {
         if (data) {
@@ -5022,13 +5077,11 @@ export class CreateAddressRequest implements ICreateAddressRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
             this.street = _data["street"];
             this.houseNumber = _data["houseNumber"];
             this.city = _data["city"];
             this.gprs = _data["gprs"];
             this.box = _data["box"];
-            this.applicant = _data["applicant"];
         }
     }
 
@@ -5041,25 +5094,21 @@ export class CreateAddressRequest implements ICreateAddressRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["street"] = this.street;
         data["houseNumber"] = this.houseNumber;
         data["city"] = this.city;
         data["gprs"] = this.gprs;
         data["box"] = this.box;
-        data["applicant"] = this.applicant;
         return data;
     }
 }
 
 export interface ICreateAddressRequest {
-    id?: string;
     street?: string | undefined;
     houseNumber?: string | undefined;
     city?: string | undefined;
     gprs?: string | undefined;
     box?: string | undefined;
-    applicant?: number;
 }
 
 export class ApplicantVm implements IApplicantVm {

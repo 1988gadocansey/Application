@@ -304,10 +304,11 @@ public class ApplicantService(
      } */
     public async Task<IEnumerable<AddressDto>> GetAddresses(int applicant, CancellationToken cancellationToken)
     {
-        var data = await context.AddressModels.FirstOrDefaultAsync(a => a.Applicant!.Id == applicant,
-            cancellationToken);
-
+        var data = await context.AddressModels
+            .Where(a => a.Applicant != null && a.Applicant.Id == applicant)
+            .ToListAsync(cancellationToken);
         return mapper.Map<IEnumerable<AddressDto>>(data);
+        
     }
 
     

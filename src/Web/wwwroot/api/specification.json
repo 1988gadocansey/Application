@@ -18,10 +18,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AddressDto"
-                  }
+                  "$ref": "#/components/schemas/PaginatedListOfAddressDto"
                 }
               }
             }
@@ -34,7 +31,7 @@
         ]
       }
     },
-    "/api/Address/Create": {
+    "/api/Address/Address/Create": {
       "post": {
         "tags": [
           "Address"
@@ -58,8 +55,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "guid"
+                  "type": "integer",
+                  "format": "int32"
                 }
               }
             }
@@ -2436,6 +2433,36 @@
   },
   "components": {
     "schemas": {
+      "PaginatedListOfAddressDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressDto"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
       "AddressDto": {
         "type": "object",
         "additionalProperties": false,
@@ -3445,10 +3472,6 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
-          },
           "street": {
             "type": "string",
             "nullable": true
@@ -3468,10 +3491,6 @@
           "box": {
             "type": "string",
             "nullable": true
-          },
-          "applicant": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
