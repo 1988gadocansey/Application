@@ -8,23 +8,17 @@ namespace ApplicantPortal.Application.ProgrammeInformation.Queries;
 
 public record GetProgrammeInfoQuery : IRequest<ApplicantVm>;
 
-public class GetProgrammeInfoQueryHandler : IRequestHandler<GetApplicantQuery, ApplicantVm>
+public class GetProgrammeInfoQueryHandler(
+    IApplicationDbContext context,
+    IApplicantRepository applicantRepository,
+    IUser currentUserService,
+    IMapper mapper)
+    : IRequestHandler<GetProgrammeInfoQuery, ApplicantVm>
 {
-    private readonly IApplicationDbContext _context;
-    private readonly IApplicantRepository _applicantRepository;
-    private readonly IUser _currentUserService;
-    private readonly IMapper _mapper;
+    private readonly IApplicationDbContext _context = context;
+    private readonly IMapper _mapper = mapper;
 
-    public GetProgrammeInfoQueryHandler(IApplicationDbContext context, IApplicantRepository applicantRepository, IUser currentUserService, IMapper mapper)
-    {
-        _context = context;
-        _applicantRepository = applicantRepository;
-        _currentUserService = currentUserService;
-        _mapper = mapper;
-
-    }
-
-    public async Task<ApplicantVm> Handle(GetApplicantQuery request, CancellationToken cancellationToken) => await _applicantRepository.GetApplicantForUser(_currentUserService.Id, cancellationToken);
+    public async Task<ApplicantVm> Handle(GetProgrammeInfoQuery request, CancellationToken cancellationToken) => await applicantRepository.GetApplicantForUser(currentUserService.Id, cancellationToken);
     /* public async Task<ApplicantVm> Handle(GetApplicantQuery request, CancellationToken cancellationToken)
     {
         return await _applicantRepository.GetApplicantForUser(_currentUserService.UserId, cancellationToken);

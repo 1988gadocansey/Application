@@ -9,7 +9,7 @@ public interface IApplicationDbContext
     DbSet<ApplicantModel> ApplicantModels { get; }
     DbSet<ConfigurationModel> ConfigurationModels { get; }
     DbSet<ResultUploadModel> ResultUploadModels { get; }
-    DbSet<Choices> Choices { get; }
+    DbSet<Domain.Entities.Choices> Choices { get; }
     DbSet<AcademicExperienceModel> AcademicExperienceModels { get; }
     DbSet<WorkingExperienceModel> WorkingExperienceModels { get; }
     DbSet<ResearchModel> ResearchModels { get; }

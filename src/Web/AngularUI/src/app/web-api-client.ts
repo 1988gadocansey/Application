@@ -17,11 +17,13 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface IClient {
     addresses(): Observable<PaginatedListOfAddressDto>;
+    deleteAddress(id: number): Observable<void>;
     create(command: CreateAddressRequest): Observable<number>;
     applicantInfo(): Observable<ApplicantVm>;
     getForm(): Observable<ApplicationType[]>;
     saveFormChanges(command: CreateFormUpdateRequest): Observable<boolean>;
     createBiodata(command: CreateBiodataRequest): Observable<number>;
+    choice(): Observable<ChoicesDto>;
     index(): Observable<UserDto>;
     getUploadedDocuments(resultId: number, pageNumber: number, pageSize: number): Observable<PaginatedListOfDocumentUploadDto>;
     createUploadedDocuments(command: UploadDocumentRequest): Observable<number>;
@@ -34,6 +36,7 @@ export interface IClient {
     previewShs(): Observable<SHSAttendedDto>;
     getProgrammeById(id: number): Observable<ProgrammeDto>;
     finalized(command: FinalizedRequest): Observable<number>;
+    getProgrammeInformation(): Observable<ApplicantVm>;
     createProgrammes(command: ProgrammeInfoRequest): Observable<number>;
     getRefereeInfo(resultId: number, pageNumber: number, pageSize: number): Observable<PaginatedListOfRefereeDto>;
     createRefereeInfo(command: CreateRefereeRequest): Observable<number>;
@@ -138,6 +141,53 @@ export class Client implements IClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = PaginatedListOfAddressDto.fromJS(resultData200);
             return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    deleteAddress(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/Address/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteAddress(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteAddress(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteAddress(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -399,6 +449,54 @@ export class Client implements IClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    choice(): Observable<ChoicesDto> {
+        let url_ = this.baseUrl + "/api/Choices/Choices";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChoice(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChoice(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ChoicesDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ChoicesDto>;
+        }));
+    }
+
+    protected processChoice(response: HttpResponseBase): Observable<ChoicesDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ChoicesDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1021,6 +1119,54 @@ export class Client implements IClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getProgrammeInformation(): Observable<ApplicantVm> {
+        let url_ = this.baseUrl + "/api/ProgrammeInformation/GetProgrammeInformation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProgrammeInformation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProgrammeInformation(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ApplicantVm>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ApplicantVm>;
+        }));
+    }
+
+    protected processGetProgrammeInformation(response: HttpResponseBase): Observable<ApplicantVm> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ApplicantVm.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -6678,6 +6824,54 @@ export enum Languages {
     Igbo = 13,
     Hausa = 14,
     Nzema = 15,
+}
+
+export class ChoicesDto implements IChoicesDto {
+    id?: number;
+    firstChoice?: ProgrammeModel | undefined;
+    secondChoice?: ProgrammeModel | undefined;
+    thirdChoice?: ProgrammeModel | undefined;
+
+    constructor(data?: IChoicesDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.firstChoice = _data["firstChoice"] ? ProgrammeModel.fromJS(_data["firstChoice"]) : <any>undefined;
+            this.secondChoice = _data["secondChoice"] ? ProgrammeModel.fromJS(_data["secondChoice"]) : <any>undefined;
+            this.thirdChoice = _data["thirdChoice"] ? ProgrammeModel.fromJS(_data["thirdChoice"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ChoicesDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ChoicesDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["firstChoice"] = this.firstChoice ? this.firstChoice.toJSON() : <any>undefined;
+        data["secondChoice"] = this.secondChoice ? this.secondChoice.toJSON() : <any>undefined;
+        data["thirdChoice"] = this.thirdChoice ? this.thirdChoice.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IChoicesDto {
+    id?: number;
+    firstChoice?: ProgrammeModel | undefined;
+    secondChoice?: ProgrammeModel | undefined;
+    thirdChoice?: ProgrammeModel | undefined;
 }
 
 export class UserDto implements IUserDto {

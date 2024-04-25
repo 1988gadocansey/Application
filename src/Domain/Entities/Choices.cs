@@ -4,8 +4,8 @@ public record Choices
 {
     [Key]
     public int Id { init; get; }
-    public ApplicantModel? Applicant { get; init; }
-    public ProgrammeModel? FirstChoice { get; init; }
-    public ProgrammeModel? SecondChoice { get; init; }
-    public ProgrammeModel? ThirdChoice { get; init; } 
+    public ApplicantModel? Applicant { get; set; }
+    public ProgrammeModel? FirstChoice { get; set; }
+    public ProgrammeModel? SecondChoice { get; set; }
+    public ProgrammeModel? ThirdChoice { get; set; } 
 }

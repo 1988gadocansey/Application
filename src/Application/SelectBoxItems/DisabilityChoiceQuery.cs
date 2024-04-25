@@ -7,7 +7,7 @@ public class DisabilityChoiceQueryHandler : IRequestHandler<DisabilityChoiceQuer
     {
         var Disabilities = new[]
         {
-            "DEAF", "DUMB", "DEAF and DUMB", "BLIND (1 Eye)", "DEAF (1 Ear)", "CRIPPLED", "AMPUTEE", "BLIND"
+            "Deaf", "Hearing Impaired", "Wheelchair Bound", "Lame (In Crutches)", "Physically Handicapped", "Blind", "Speech Impaired", "Speech Impaired","Partially Sighted","Other"
         };
         return await Task.FromResult(Disabilities);
     }

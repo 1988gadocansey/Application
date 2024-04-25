@@ -1,6 +1,5 @@
 using ApplicantPortal.Application.Common.Interfaces;
 using ApplicantPortal.Domain.Entities;
-
 namespace ApplicantPortal.Application.Address.Commands;
 
 

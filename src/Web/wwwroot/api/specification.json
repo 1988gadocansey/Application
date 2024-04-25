@@ -31,6 +31,36 @@
         ]
       }
     },
+    "/api/Address/{id}": {
+      "delete": {
+        "tags": [
+          "Address"
+        ],
+        "operationId": "DeleteAddress",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Address/Address/Create": {
       "post": {
         "tags": [
@@ -185,6 +215,31 @@
                 "schema": {
                   "type": "integer",
                   "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Choices/Choices": {
+      "get": {
+        "tags": [
+          "Choices"
+        ],
+        "operationId": "Choice",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChoicesDto"
                 }
               }
             }
@@ -618,6 +673,31 @@
                 "schema": {
                   "type": "integer",
                   "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/ProgrammeInformation/GetProgrammeInformation": {
+      "get": {
+        "tags": [
+          "ProgrammeInformation"
+        ],
+        "operationId": "GetProgrammeInformation",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicantVm"
                 }
               }
             }
@@ -4764,6 +4844,40 @@
           14,
           15
         ]
+      },
+      "ChoicesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstChoice": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ProgrammeModel"
+              }
+            ]
+          },
+          "secondChoice": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ProgrammeModel"
+              }
+            ]
+          },
+          "thirdChoice": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ProgrammeModel"
+              }
+            ]
+          }
+        }
       },
       "UserDto": {
         "type": "object",
